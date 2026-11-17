@@ -16,7 +16,7 @@ Cible documentaire : Digitone MKI / Digitone Keys OS 1.44, shared elekloader mac
 | Tests hôte API historique 0.1.1 | PASS | — | Branche dnm_machine |
 | Sanitizers historiques | PASS | — | Aucun défaut signalé |
 | Validation plages/defaults metadata | PASS | — | Plages OS1.44 et valeurs par défaut |
-| Équivalence du pliage TESSERA | PASS | — | 416 045 valeurs du domaine démontré |
+| Équivalence du pliage TESSERA (SDK alpha) | PASS | PASS | 416 245 valeurs dans le domaine démontré |
 | Vérificateur du firmware stock OS1.44 | PASS | — | Entrée locale fournie vérifiée |
 
 Le harnais alpha a rendu 2 081 888 échantillons hôte sans clamp dur signalé par son compteur de test. Les huit lanes ont été testées séparément pour leur état : ce n'est pas un mixage natif de huit voix mesuré, ni une mesure de cycles ColdFire.
@@ -39,6 +39,8 @@ CC=gcc ./tests/run_sanitizers.sh
 python3 tests/validate_metadata.py
 python3 tests/test_tessera_fold.py
 ```
+
+Le test de pliage de la branche SDK alpha couvre 416 245 valeurs contiguës dans le domaine borné et les contrôles hors domaine. Le test historique 0.1.1 couvre séparément 416 045 valeurs.
 
 Ces tests ont été exécutés sur le paquet source local et ne sont pas encore rejoués par la CI GitHub de ce dépôt. La CI GitHub vérifie les manifestes catalogue/SDK/IDs, les références locales du site et la syntaxe des validateurs Python. Le vérificateur du firmware stock nécessite le fichier OS 1.44 original fourni localement ; ce fichier propriétaire n'est pas inclus.
 
