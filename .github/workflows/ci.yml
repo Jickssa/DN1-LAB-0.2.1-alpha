@@ -1,4 +1,4 @@
-name: DN1-LAB repository checks
+name: DN1-LAB validation
 
 on:
   push:
@@ -10,9 +10,15 @@ permissions:
   contents: read
 
 jobs:
-  metadata-and-site:
-    name: Catalogue and static-site validation
+  host-validation:
+    name: Host validation (${{ matrix.compiler }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    env:
+      CC: ${{ matrix.compiler }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,20 +26,31 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate catalogue against SDK sources
-        run: python3 tools/validate_catalogue.py
-      - name: Validate static-site references
-        run: python3 tools/validate_site.py
-      - name: Compile Python validators
-        run: python3 -m compileall -q tools
-      - name: Parse all checked-in JSON manifests
+      - name: Verify host source bundle
         run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          files = sorted(Path('.').rglob('*.json'))
-          for path in files:
-              json.loads(path.read_text(encoding='utf-8'))
-              print(f'PASS {path}')
-          print(f'Validated {len(files)} JSON files')
-          PY
+          cd source-bundles
+          sha256sum -c SHA256SUMS.txt
+          cd ..
+          ./scripts/unpack_source_bundle.sh
+      - name: Validate manifests, catalogue and website
+        run: |
+          python3 tests/validate_alpha_manifests.py
+          python3 tools/validate_catalogue.py
+          python3 tools/validate_site.py
+          python3 -m compileall -q tests tools
+      - name: Alpha DSP regression suite
+        run: ./tests/run_alpha_tests.sh
+      - name: Production-like optimized build
+        run: ./tests/run_alpha_production_like.sh
+      - name: Address and undefined behaviour sanitizers
+        run: ./tests/run_alpha_sanitizers.sh
+      - name: GCC static analyzer
+        if: matrix.compiler == 'gcc'
+        run: ./tests/run_alpha_analyzer.sh
+      - name: Legacy API regression tests
+        if: matrix.compiler == 'gcc'
+        run: |
+          ./tests/run_host_tests.sh
+          ./tests/run_sanitizers.sh
+          python3 tests/validate_metadata.py
+          python3 tests/test_tessera_fold.py

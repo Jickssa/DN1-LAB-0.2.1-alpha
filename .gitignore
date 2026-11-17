@@ -1,4 +1,4 @@
-# Generated binaries and audio renders
+# Host build products
 host/alpha_test
 host/alpha_test_san
 host/host_test
@@ -7,21 +7,24 @@ host/host_test_san
 *.a
 *.so
 *.elf
-dist/
-build/
-audio/*.wav
-audio-alpha/*.wav
-audio-alpha/sanitized/
+*.elemod
 
-# User firmware and temporary inputs
+# Generated audio renders (keep OGG demos)
+*.wav
+
+# Local firmware inputs
 firmware/*.bin
 firmware/*.syx
 firmware/*.hex
 *.syx
-*.elemod
 
 # Python and OS artefacts
 __pycache__/
 .pytest_cache/
 .DS_Store
 Thumbs.db
+
+# Build output
+build/
+dist/
+artifacts/
