@@ -8,8 +8,9 @@ Le Workbench statique est livré dans `site/workbench/`. Il permet :
 - d'afficher leur cible Digitone MKI OS 1.44 et leur niveau de preuve L2 ;
 - de charger un fichier firmware dans le navigateur uniquement et calculer son SHA-256 ;
 - de comparer ce hash au profil stock OS 1.44 documenté ;
-- d'exporter un manifeste JSON de préparation listant cible, modules, version et état de validation ;
-- d'écouter les préécoutes OGG des trois moteurs.
+- d'exporter un manifeste JSON de préparation listant cible, modules, version et état de validation.
+
+Les rendus audio WAV de référence sont conservés dans l'archive source DN1-LAB 0.2.2-alpha ; le site Workbench actuel ne propose pas encore de lecteur audio intégré.
 
 Le navigateur ne transmet pas le firmware. Le Workbench ne parse pas encore complètement le conteneur ELE3, ne résout pas les dépendances upstream, ne compile pas, ne patch pas et ne flashe aucun fichier. Le JSON exporté est un plan, pas un firmware.
 
