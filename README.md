@@ -1,88 +1,107 @@
-# DN1-LAB — Experimental sound machines for Elektron Digitone MKI
+# DN1-LAB — Machines de synthèse expérimentales pour Digitone MKI
 
-[Français](#français) · [English](#english)
+[Français](#français) · [English](#english) · [Catalogue / Workbench](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/)
 
-> Independent community research. DN1-LAB is not affiliated with Elektron.
+> Laboratoire indépendant. DN1-LAB n'est ni affilié à Elektron, ni un produit officiel. Les modules alpha ne sont pas certifiés installables.
 
 ## Français
 
-DN1-LAB est un laboratoire logiciel indépendant consacré à la recherche de machines de synthèse et d'outils pour Elektron Digitone MKI. Le dépôt organise le code, la documentation, les propositions communautaires et les validations reproductibles.
+DN1-LAB développe des moteurs de synthèse natifs et des outils de recherche pour Elektron Digitone MKI. La version source intégrée est **0.2.2-alpha**, ciblant exclusivement le Digitone MKI / Digitone Keys OS 1.44 avec le shared machine SDK alpha d'elekloader.
 
-**État de cette branche :** fondation documentaire et architecture publique. Les sources complètes KARST, MORPHANT et TESSERA, ainsi que le générateur firmware, restent à importer et à tester dans ce dépôt. Cette branche ne contient aucun binaire firmware modifié et ne constitue pas une version installable.
+### Démarrage rapide
 
-Cible de recherche : DN1-LAB 0.2.x-alpha, Digitone MKI OS 1.44. Toute compatibilité doit être confirmée par une compilation SDK et des essais adaptés ; un test hôte ne prouve pas le fonctionnement matériel.
-
-### Machines de recherche
-
-| ID | Machine | Concept | État ici |
-|---:|---|---|---|
-| 100 | KARST — Modal Matter | Résonateurs modaux, matériaux et excitations | Fiche conceptuelle ; sources à importer |
-| 101 | MORPHANT — Formant Organism | Synthèse additive, morphing de formants, textures | Fiche conceptuelle ; sources à importer |
-| 102 | TESSERA — Phase Lattice | Accumulateurs de phase couplés, feedback, fold | Fiche conceptuelle ; sources à importer |
-
-Les IDs sont à vérifier dans chaque build combiné : ils ne sont pas réservés universellement.
-
-### Objectifs
-
-- concevoir des moteurs sonores originaux dans les contraintes du Digitone MKI ;
-- établir des contrats DSP et SDK indépendants ;
-- fournir rendu hôte, tests déterministes, analyse numérique et rapports de ressources ;
-- maintenir un catalogue communautaire bilingue ;
-- construire à terme un pipeline local, vérifiable et reproductible de préparation firmware ;
-- séparer clairement concepts, code testé sur hôte, builds SDK, émulation et essais matériels.
-
-### Architecture visée
-
-DSP isolé par machine → manifeste versionné → adaptateur SDK → hôte de test → validation → résolution de dépendances → assemblage firmware → vérification d'intégrité et rapport de build.
-
-### Documentation et participation
-
-- [Documentation](docs/README.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Catalogue et concepts de machines](docs/MACHINES.md)
-- [Pipeline firmware](docs/FIRMWARE-PIPELINE.md)
-- [Workbench](docs/WORKBENCH.md)
-- [Politique de validation](docs/VALIDATION.md)
-- [Communauté](docs/COMMUNITY.md)
+- [Workbench — catalogue et planificateur local](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/)
+- [Vue technique détaillée](docs/TECHNICAL-OVERVIEW.md)
+- [Guide des instruments](docs/INSTRUMENTS.md)
+- [Rapport de validation](docs/VALIDATION.md)
+- [Architecture et portage SDK](docs/ALPHA-PORT.md)
+- [État de la recherche](docs/RESEARCH.md)
 - [Contribuer](CONTRIBUTING.md)
-- [Feuille de route](ROADMAP.md)
-- [Sécurité](SECURITY.md)
 
-Les contributions FR et EN sont ouvertes. Utiliser les Discussions pour les idées et les Issues pour les tâches ou défauts reproductibles.
+### Les trois moteurs inclus
+
+| Machine | ID | Synthèse | Contrôles SDK | État |
+|---|---:|---|---:|---|
+| KARST — Modal Matter | 100 | Résonateurs modaux inharmoniques et matières virtuelles | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
+| MORPHANT — Formant Organism | 101 | Six partiels, profils formantiques et trois textures distinctes | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
+| TESSERA — Phase Lattice | 102 | Deux accumulateurs de phase couplés, feedback et repliement | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
+
+La branche historique `modules/` reste disponible pour l'API `dnm_machine` 0.1.1. La branche `sdk-alpha/` contient le port séparé vers `struct elek_machine` et `ELEK_REGISTER_MACHINE`.
+
+### Vérification locale
+
+Prérequis : Python 3, GCC ou Clang, environnement POSIX. Depuis la racine :
+
+```sh
+sha256sum -c SHA256SUMS.txt
+python3 tests/validate_alpha_manifests.py
+python3 tools/validate_catalogue.py
+python3 tools/validate_site.py
+./tests/run_alpha_tests.sh
+./tests/run_alpha_production_like.sh
+./tests/run_alpha_sanitizers.sh
+./tests/run_alpha_analyzer.sh
+```
+
+Les tests historiques sont `./tests/run_host_tests.sh`, `./tests/run_sanitizers.sh`, `python3 tests/validate_metadata.py` et `python3 tests/test_tessera_fold.py`.
+
+### Limites essentielles
+
+Cette version est un paquet de sources et de tests hôte. Aucun `.elemod` ColdFire ni firmware modifié `.syx` n'est fourni. Le build officiel via le vrai checkout elekloader, le linker, le runner hôte upstream, l'émulateur et le Digitone réel n'ont pas été validés ici. Les tests hôte ne démontrent ni budget temps réel, ni compatibilité matérielle. Lire intégralement [VALIDATION.md](docs/VALIDATION.md) avant toute tentative de portage.
+
+Le Workbench vérifie localement le hash d'un fichier sélectionné dans le navigateur et exporte un plan JSON ; il **ne modifie pas** le firmware et n'envoie aucun fichier à un serveur.
+
+### Communauté
+
+Les contributions FR et EN sont ouvertes : [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). La publication du site requiert la source GitHub Pages réglée sur « GitHub Actions » dans Settings → Pages ; l'activation des Discussions requiert également le réglage correspondant dans les paramètres du dépôt.
 
 ## English
 
-DN1-LAB is an independent software research lab for experimental synthesis machines and tooling for the Elektron Digitone MKI. This repository organizes source code, documentation, community proposals and reproducible validation.
+DN1-LAB develops native synthesis engines and research tools for the Elektron Digitone MKI. The integrated source release is **0.2.2-alpha**, targeting Digitone MKI / Digitone Keys OS 1.44 only, with elekloader's shared machine SDK alpha.
 
-**Status of this branch:** public documentation and architecture foundation. The full KARST, MORPHANT and TESSERA source trees, as well as a firmware generator, still need to be imported and tested in this repository. This branch contains no modified firmware binary and is not an installable release.
+### Quick start
 
-Research target: DN1-LAB 0.2.x-alpha, Digitone MKI OS 1.44. Compatibility requires a target SDK build and appropriate testing; host tests alone do not prove hardware operation.
+- [Workbench — catalogue and local planner](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/)
+- [Technical overview](docs/TECHNICAL-OVERVIEW.md)
+- [Instrument guide](docs/INSTRUMENTS.md)
+- [Validation report](docs/VALIDATION.md)
+- [Architecture and SDK port](docs/ALPHA-PORT.md)
+- [Research state](docs/RESEARCH.md)
+- [Contributing](CONTRIBUTING.md)
 
-### Research machines
+### Included engines
 
-| ID | Machine | Concept | Status here |
-|---:|---|---|---|
-| 100 | KARST — Modal Matter | Modal resonators, materials and excitations | Concept entry; source to be imported |
-| 101 | MORPHANT — Formant Organism | Additive synthesis, formant morphing, textures | Concept entry; source to be imported |
-| 102 | TESSERA — Phase Lattice | Coupled phase accumulators, feedback, fold | Concept entry; source to be imported |
+| Machine | ID | Synthesis | SDK controls | Status |
+|---|---:|---|---:|---|
+| KARST — Modal Matter | 100 | Inharmonic modal resonators and virtual materials | 15 | Host tests pass; ColdFire build / hardware unverified |
+| MORPHANT — Formant Organism | 101 | Six partials, formant profiles and three distinct textures | 15 | Host tests pass; ColdFire build / hardware unverified |
+| TESSERA — Phase Lattice | 102 | Two coupled phase accumulators, feedback and wavefolding | 15 | Host tests pass; ColdFire build / hardware unverified |
 
-IDs must be checked in every combined build; they are not universally reserved.
+The legacy `modules/` tree remains available for the 0.1.1 `dnm_machine` API. `sdk-alpha/` contains a separate port using `struct elek_machine` and `ELEK_REGISTER_MACHINE`.
 
-### Goals
+### Local validation
 
-- design original sound engines within Digitone MKI constraints;
-- establish independent DSP and SDK contracts;
-- provide host rendering, deterministic tests, numerical analysis and resource reports;
-- maintain a bilingual community catalogue;
-- eventually build a local, verifiable and reproducible firmware-preparation pipeline;
-- clearly distinguish concepts, host-tested code, SDK builds, emulation and hardware tests.
+Requirements: Python 3, GCC or Clang, POSIX shell environment. Run from the repository root:
 
-### Intended architecture
+```sh
+sha256sum -c SHA256SUMS.txt
+python3 tests/validate_alpha_manifests.py
+python3 tools/validate_catalogue.py
+python3 tools/validate_site.py
+./tests/run_alpha_tests.sh
+./tests/run_alpha_production_like.sh
+./tests/run_alpha_sanitizers.sh
+./tests/run_alpha_analyzer.sh
+```
 
-Isolated per-machine DSP → versioned manifest → SDK adapter → test host → validation → dependency resolution → firmware assembly → integrity verification and build report.
+Legacy tests are `./tests/run_host_tests.sh`, `./tests/run_sanitizers.sh`, `python3 tests/validate_metadata.py` and `python3 tests/test_tessera_fold.py`.
 
-### Documentation and participation
+### Critical limitations
 
-See the [documentation](docs/README.md), [architecture](docs/ARCHITECTURE.md), [machine concepts](docs/MACHINES.md), [firmware pipeline](docs/FIRMWARE-PIPELINE.md), [Workbench](docs/WORKBENCH.md), [validation policy](docs/VALIDATION.md), [community guide](docs/COMMUNITY.md), [contribution guide](CONTRIBUTING.md), [roadmap](ROADMAP.md) and [security policy](SECURITY.md).
+This is a source and host-test alpha package. No ColdFire `.elemod` or modified firmware `.syx` is included. The real elekloader checkout/build, linker, upstream host runner, emulator and physical Digitone have not been validated here. Host tests do not establish real-time budget or hardware compatibility. Read [VALIDATION.md](docs/VALIDATION.md) before any porting attempt.
 
-Contributions in French and English are welcome. Use Discussions for ideas and Issues for tasks or reproducible defects.
+The Workbench locally hashes a user-selected file in the browser and exports a JSON plan; it **does not modify** firmware or send files to a server.
+
+### Community
+
+French and English contributions are welcome: [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). GitHub Pages must be configured to use “GitHub Actions” under Settings → Pages before the site URL becomes live; Discussions must also be enabled in repository settings.

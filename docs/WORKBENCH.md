@@ -1,23 +1,32 @@
-# Workbench / Atelier
+# Workbench / Atelier de préparation
 
-## Français
-Choix recommandé : construire une interface DN1-LAB propre, qui renvoie vers elekloader pour les fonctions existantes qu'elle ne réimplémente pas. Ne pas copier son identité graphique ni prétendre fournir la même chaîne d'assemblage.
+## État implémenté dans ce dépôt
 
-Parcours utilisateur cible : sélectionner Digitone MKI et OS exact ; importer le firmware local ; confirmer la détection ; choisir les modules ; visualiser dépendances, conflits d'ID, limites, ressources et niveau de validation ; générer un plan de build ; exécuter un builder local isolé ; consulter logs/tests/hash ; télécharger l'artefact et lire les consignes de récupération.
+Le Workbench statique est livré dans `site/workbench/`. Il permet :
 
-V1 catalogue : fiches, filtres de compatibilité, licences, statut de preuve et liens elekloader. Pas de génération.
-V2 preflight : import local, inspection en lecture seule, dépendances, collisions et plan exportable.
-V3 builder : SDK et outils versionnés, sandbox, intégration déterministe, tests, manifeste et artefact local.
+- de sélectionner KARST, MORPHANT et TESSERA (0.2.2-alpha) ;
+- d'afficher leur cible Digitone MKI OS 1.44 et leur niveau de preuve L2 ;
+- de charger un fichier firmware dans le navigateur uniquement et calculer son SHA-256 ;
+- de comparer ce hash au profil stock OS 1.44 documenté ;
+- d'exporter un manifeste JSON de préparation listant cible, modules, version et état de validation ;
+- d'écouter les préécoutes OGG des trois moteurs.
 
-Aucune de ces versions d'interface ou de génération n'est implémentée dans cette branche : ce document est une spécification.
+Le navigateur ne transmet pas le firmware. Le Workbench ne parse pas encore complètement le conteneur ELE3, ne résout pas les dépendances upstream, ne compile pas, ne patch pas et ne flashe aucun fichier. Le JSON exporté est un plan, pas un firmware.
 
-## English
-Recommended direction: build a distinct DN1-LAB interface and link to elekloader for existing capabilities that DN1-LAB does not implement. Do not copy its visual identity or imply an equivalent assembly pipeline.
+## Choix d'architecture
 
-Target workflow: select Digitone MKI and exact OS; import firmware locally; confirm detection; select modules; inspect dependencies, ID conflicts, limits, resources and validation level; generate a build plan; run an isolated local builder; inspect logs/tests/digest; download the artifact and read recovery instructions.
+DN1-LAB construit une interface de préparation modulaire, complémentaire à elekloader, plutôt qu'une copie de son interface ou de son service. Le lien vers le Mod Shop et le dépôt elekloader reste disponible pour les fonctions qu'il fournit déjà.
 
-V1 catalogue: entries, compatibility filters, licenses, evidence status and elekloader links. No generation.
-V2 preflight: local import, read-only inspection, dependency/conflict checks and exportable plan.
-V3 builder: pinned SDK/toolchain, sandbox, deterministic integration, tests, manifest and local artifact.
+## Parcours utilisateur actuel
 
-None of these UI or generation versions is implemented in this branch; this is a specification.
+1. Ouvrir le Workbench, choisir un ou plusieurs moteurs source.
+2. Confirmer la cible Digitone MKI / OS 1.44.
+3. Facultativement sélectionner le fichier stock local pour calculer et vérifier son empreinte connue.
+4. Examiner le résumé et exporter le plan JSON.
+5. Utiliser les dépôts et outils upstream appropriés pour les opérations non fournies par cette interface.
+
+## Étapes suivantes
+
+**Préflight V2 :** parseur en lecture seule du conteneur ELE3, validation stricte de la cible, résolution du graphe de dépendances, contrôles de collisions et limites du build combiné.
+
+**Builder V3 :** builder SDK versionné, environnement isolé, intégration du core et du compagnon Digitone OS 1.44, lint combiné, patcher, vérification déterministe, rapport de provenance et validation par émulateur. L'interface ne doit afficher cette fonction qu'une fois les prérequis et tests effectivement disponibles.

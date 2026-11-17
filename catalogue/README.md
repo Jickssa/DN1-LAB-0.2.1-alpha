@@ -1,5 +1,7 @@
-# Community catalogue / Catalogue communautaire
+# DN1-LAB module catalogue / Catalogue de modules
 
-Each future module entry must include: bilingual description, manifest, requested ID, license, provenance, hardware/OS/SDK targets, parameter map, resource estimates and validation level. No module is installable merely because it appears in this catalogue.
+The machine records in `machines/` are the catalogue source of truth for identity, targets, evidence level and capabilities. They are validated against the SDK module descriptors and C machine IDs by `python3 tools/validate_catalogue.py`.
 
-Chaque fiche future doit inclure : descriptif bilingue, manifeste, ID demandé, licence, provenance, cibles matériel/OS/SDK, paramètres, ressources estimées et niveau de validation. Une présence au catalogue ne vaut pas statut installable.
+Les fiches de `machines/` constituent la référence du catalogue pour l'identité, les cibles, le niveau de preuve et les capacités. Elles sont comparées aux manifestes SDK et aux IDs C par `python3 tools/validate_catalogue.py`.
+
+`proposals/` contains exploratory concepts. A proposal is not a module and must not appear as selectable/installable firmware until an implementation passes the validation gates.

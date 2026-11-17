@@ -1,19 +1,26 @@
-# Local generated files
-firmware/*.bin
-firmware/*.syx
-firmware/*.hex
-*.elf
+# Generated binaries and audio renders
+host/alpha_test
+host/alpha_test_san
+host/host_test
+host/host_test_san
 *.o
 *.a
 *.so
-*.dll
-*.dylib
-*.wav
-*.zip
-build/
+*.elf
 dist/
-artifacts/
-.cache/
+build/
+audio/*.wav
+audio-alpha/*.wav
+audio-alpha/sanitized/
+
+# User firmware and temporary inputs
+firmware/*.bin
+firmware/*.syx
+firmware/*.hex
+*.syx
+*.elemod
+
+# Python and OS artefacts
 __pycache__/
 .pytest_cache/
 .DS_Store
