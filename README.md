@@ -28,7 +28,7 @@ DN1-LAB est un laboratoire indépendant de moteurs de synthèse et d'outils de r
 | MORPHANT — Formant Organism | 101 | Six partiels additifs, morphing formantique, trois textures |
 | TESSERA — Phase Lattice | 102 | Deux accumulateurs de phase couplés, feedback et fold |
 
-Les sources SDK alpha sont directement consultables dans `sdk-alpha/`. Le paquet complet des sources et tests DN1-LAB 0.2.2-alpha est disponible séparément sous forme d'archive de travail ; les anciens modules API 0.1.1 et harnais de test ne sont pas encore intégrés fichier par fichier dans ce dépôt. Les résultats des tests exécutés sont consignés dans [VALIDATION.md](docs/VALIDATION.md).
+Les sources SDK alpha sont directement consultables dans `sdk-alpha/`. Le paquet complet DN1-LAB 0.2.2-alpha est conservé comme artefact local de travail, mais son archive et ses anciens modules API 0.1.1 / harnais de test ne sont pas encore publiés dans ce dépôt. Les résultats des tests exécutés sont consignés dans [VALIDATION.md](docs/VALIDATION.md). Le [script de build OS 1.44](scripts/build_digitone_alpha.sh) est fourni, mais son exécution avec la toolchain ColdFire et les compagnons upstream reste à valider.
 
 ### Contrôles disponibles dans le dépôt
 
