@@ -42,7 +42,7 @@ python3 tests/test_tessera_fold.py
 
 Le test de pliage de la branche SDK alpha couvre 416 245 valeurs contiguës dans le domaine borné et les contrôles hors domaine. Le test historique 0.1.1 couvre séparément 416 045 valeurs.
 
-Ces tests ont été exécutés sur le paquet source local et ne sont pas encore rejoués par la CI GitHub de ce dépôt. La CI GitHub vérifie les manifestes catalogue/SDK/IDs, les références locales du site et la syntaxe des validateurs Python. Le vérificateur du firmware stock nécessite le fichier OS 1.44 original fourni localement ; ce fichier propriétaire n'est pas inclus.
+Ces tests ont été exécutés sur le paquet source local et ne sont pas encore rejoués par la CI GitHub de ce dépôt. La CI GitHub vérifie les manifestes catalogue/SDK/IDs, les références locales du site, la syntaxe des validateurs Python, la syntaxe POSIX du script de build et le parsing des JSON. Elle ne lance pas le build upstream. Le vérificateur du firmware stock nécessite le fichier OS 1.44 original fourni localement ; ce fichier propriétaire n'est pas inclus.
 
 ## Identité du firmware stock vérifié
 
