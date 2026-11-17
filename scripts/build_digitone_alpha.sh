@@ -88,7 +88,7 @@ build_one() {
   source_dir=$1
   output_dir=$2
   mkdir -p "$output_dir"
-  python3 -m elekloader.sdk.build "$source_dir" --stock "$STOCK" --out "$output_dir"
+  python3 -m elekloader.sdk.build "$source_dir" --stock "$STOCK" --out "$output_dir" >&2
   one_mod "$output_dir"
 }
 
