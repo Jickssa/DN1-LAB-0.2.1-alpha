@@ -1,6 +1,6 @@
 # PHOTON — Event-Driven Phase Camera
 
-**État / Status:** concept L0, not implemented. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** prototype hôte L1 réalisé et testé ; ColdFire, linker combiné et matériel non validés. ID 107 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Les événements de note, vélocité et modulation déclenchent des impulsions dans un réseau de phase. Elles se réfléchissent, se recroisent et forment des interférences contrôlables : métal liquide, verre instable, battements microscopiques.

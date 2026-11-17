@@ -1,6 +1,6 @@
 # MYCEL — Distributed Coupling Synth
 
-**État / Status:** concept L0, not implemented. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** prototype hôte L1 réalisé et testé ; ColdFire, linker combiné et matériel non validés. ID 104 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Organisme de résonateurs dont la topologie est aussi musicale que les fréquences. Les nœuds sont des masses modales simplifiées ; les arêtes transportent une fraction bornée d'énergie ou de phase. Un contrôle mute le graphe d'une chaîne en anneau puis en étoile.

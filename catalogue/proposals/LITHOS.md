@@ -1,6 +1,6 @@
 # LITHOS — Spectral Erosion Engine
 
-**État / Status:** concept L0, not implemented. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** prototype hôte L1 réalisé et testé ; ColdFire, linker combiné et matériel non validés. ID 106 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Une matière spectrale s'use, se dépose, se fissure et se recompose. L'énergie des partiels est transférée entre quelques classes de grain plutôt que simplement filtrée. Le geste transforme un son lisse en texture poreuse puis en éclats métalliques.

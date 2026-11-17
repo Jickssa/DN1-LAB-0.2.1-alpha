@@ -1,6 +1,6 @@
 # ANIMA — Cross-Voice Ecology Bus
 
-**État / Status:** concept L0, system-level; blocked on verified SDK support. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** fallback local à quatre agents réalisé en prototype hôte L1 ; la proposition inter-voix reste concept L0, bloquée sur une API SDK synchronisée vérifiée. ID 108 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Les voix d'une même machine forment un écosystème : chacune publie une mesure lente de densité, tension, hauteur ou activité ; les autres reçoivent une influence limitée. L'objectif est un comportement collectif sans qu'une voix possède l'état d'une autre.

@@ -1,6 +1,6 @@
 # ORBITAL — Gesture-Conditioned Harmonic Field
 
-**État / Status:** concept L0, not implemented. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** prototype hôte L1 réalisé et testé ; ColdFire, linker combiné et matériel non validés. ID 105 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Une trajectoire bidimensionnelle pilote un champ de rapports harmoniques et d'amplitudes. Le timbre dépend du chemin parcouru, pas seulement de la position actuelle : deux gestes arrivant au même point peuvent produire deux spectres par hystérésis contrôlée.

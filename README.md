@@ -26,7 +26,7 @@ Six nouveaux moteurs expérimentaux sont maintenant présents dans `prototypes/`
 
 - [Description des prototypes](docs/PROTOTYPES.md)
 - [Validation mesurée et limites](docs/PROTOTYPE-VALIDATION.md)
-- Préécoutes WAV : `audio-prototypes/`
+- Les six préécoutes WAV mono 48 kHz sont fournies dans l’archive de livraison ; elles ne sont pas suivies dans le dépôt GitHub.
 
 ANIMA est uniquement le repli à quatre agents dans une voix ; aucun bus inter-voix n'est implémenté. Les six moteurs sont des prototypes hôte, pas des modules `.elemod` installables.
 
