@@ -1,107 +1,91 @@
-# DN1-LAB — Machines de synthèse expérimentales pour Digitone MKI
+# DN1-LAB — Experimental synthesis machines for Digitone MKI
 
-[Français](#français) · [English](#english) · [Catalogue / Workbench](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/)
+[Français](#français) · [English](#english) · [Workbench](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/)
 
-> Laboratoire indépendant. DN1-LAB n'est ni affilié à Elektron, ni un produit officiel. Les modules alpha ne sont pas certifiés installables.
+> Independent community research. DN1-LAB is not affiliated with Elektron. Alpha sources are not certified as installable.
 
 ## Français
 
-DN1-LAB développe des moteurs de synthèse natifs et des outils de recherche pour Elektron Digitone MKI. La version source intégrée est **0.2.2-alpha**, ciblant exclusivement le Digitone MKI / Digitone Keys OS 1.44 avec le shared machine SDK alpha d'elekloader.
+DN1-LAB est un laboratoire indépendant de moteurs de synthèse et d'outils de recherche pour Elektron Digitone MKI. Cette intégration GitHub contient les trois sources de machines du port shared SDK alpha 0.2.2 et leurs manifestes, un catalogue communautaire, la documentation, un Workbench statique et des outils de contrôle de métadonnées.
 
-### Démarrage rapide
+**Cible documentaire :** Digitone MKI / Digitone Keys OS 1.44. **Niveau de preuve revendiqué ici : L2 (tests hôte effectués dans l'environnement de préparation).**
 
-- [Workbench — catalogue et planificateur local](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/)
-- [Vue technique détaillée](docs/TECHNICAL-OVERVIEW.md)
-- [Guide des instruments](docs/INSTRUMENTS.md)
-- [Rapport de validation](docs/VALIDATION.md)
-- [Architecture et portage SDK](docs/ALPHA-PORT.md)
-- [État de la recherche](docs/RESEARCH.md)
+### Accès rapide
+
+- [Workbench](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/) — sélection et plan JSON local.
+- [Présentation technique](docs/TECHNICAL-OVERVIEW.md)
+- [Guide des instruments (FR)](docs/INSTRUMENTS.md) · [Instrument guide (EN)](docs/INSTRUMENTS.en.md)
+- [Validation et limites](docs/VALIDATION.md)
+- [Portage SDK alpha](docs/ALPHA-PORT.md)
+- [Recherche et antériorité](docs/RESEARCH.md)
 - [Contribuer](CONTRIBUTING.md)
 
-### Les trois moteurs inclus
+### Moteurs inclus
 
-| Machine | ID | Synthèse | Contrôles SDK | État |
-|---|---:|---|---:|---|
-| KARST — Modal Matter | 100 | Résonateurs modaux inharmoniques et matières virtuelles | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
-| MORPHANT — Formant Organism | 101 | Six partiels, profils formantiques et trois textures distinctes | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
-| TESSERA — Phase Lattice | 102 | Deux accumulateurs de phase couplés, feedback et repliement | 15 | Tests hôte réussis ; build ColdFire / matériel non vérifié |
+| Machine | ID | Modèle | Statut |
+|---|---:|---|---|
+| KARST — Modal Matter | 100 | Trois résonateurs modaux inharmoniques | Source SDK alpha, tests hôte L2 |
+| MORPHANT — Formant Organism | 101 | Six partiels additifs, morphing formantique, trois textures | Source SDK alpha, tests hôte L2 |
+| TESSERA — Phase Lattice | 102 | Deux accumulateurs de phase couplés, feedback et fold | Source SDK alpha, tests hôte L2 |
 
-La branche historique `modules/` reste disponible pour l'API `dnm_machine` 0.1.1. La branche `sdk-alpha/` contient le port séparé vers `struct elek_machine` et `ELEK_REGISTER_MACHINE`.
+Le port SDK alpha est dans sdk-alpha/. La branche historique modules/ et le harnais tests/ de l'archive source 0.2.2-alpha ne sont pas encore présents dans cette intégration GitHub ; les résultats locaux de la suite complète sont décrits dans le rapport de validation. La CI GitHub ne prétend donc pas recompiler ni rejouer cette suite absente.
 
-### Vérification locale
+### Contrôles réellement disponibles dans ce dépôt
 
-Prérequis : Python 3, GCC ou Clang, environnement POSIX. Depuis la racine :
+    python3 tools/validate_catalogue.py
+    python3 tools/validate_site.py
+    python3 -m compileall -q tools
 
-```sh
-sha256sum -c SHA256SUMS.txt
-python3 tests/validate_alpha_manifests.py
-python3 tools/validate_catalogue.py
-python3 tools/validate_site.py
-./tests/run_alpha_tests.sh
-./tests/run_alpha_production_like.sh
-./tests/run_alpha_sanitizers.sh
-./tests/run_alpha_analyzer.sh
-```
-
-Les tests historiques sont `./tests/run_host_tests.sh`, `./tests/run_sanitizers.sh`, `python3 tests/validate_metadata.py` et `python3 tests/test_tessera_fold.py`.
+Ces contrôles valident la cohérence des manifestes catalogue/SDK/IDs C et les liens locaux des pages statiques. Ils ne compilent pas les moteurs contre le SDK cible.
 
 ### Limites essentielles
 
-Cette version est un paquet de sources et de tests hôte. Aucun `.elemod` ColdFire ni firmware modifié `.syx` n'est fourni. Le build officiel via le vrai checkout elekloader, le linker, le runner hôte upstream, l'émulateur et le Digitone réel n'ont pas été validés ici. Les tests hôte ne démontrent ni budget temps réel, ni compatibilité matérielle. Lire intégralement [VALIDATION.md](docs/VALIDATION.md) avant toute tentative de portage.
-
-Le Workbench vérifie localement le hash d'un fichier sélectionné dans le navigateur et exporte un plan JSON ; il **ne modifie pas** le firmware et n'envoie aucun fichier à un serveur.
+Aucun module ColdFire .elemod ni firmware modifié .syx n'est fourni. Le vrai build upstream, le linker combiné, le runner hôte officiel, l'émulateur et le Digitone physique n'ont pas été validés. Les tests hôte ne prouvent ni budget temps réel ni compatibilité matérielle. Le Workbench vérifie localement l'empreinte d'un fichier sélectionné et exporte un plan JSON ; il ne parse pas complètement ELE3, ne compile pas, ne patche pas et ne flashe.
 
 ### Communauté
 
-Les contributions FR et EN sont ouvertes : [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). La publication du site requiert la source GitHub Pages réglée sur « GitHub Actions » dans Settings → Pages ; l'activation des Discussions requiert également le réglage correspondant dans les paramètres du dépôt.
+Contributions en français et en anglais : [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). Discussions et GitHub Pages doivent être activés dans les paramètres du dépôt par un administrateur.
+
+---
 
 ## English
 
-DN1-LAB develops native synthesis engines and research tools for the Elektron Digitone MKI. The integrated source release is **0.2.2-alpha**, targeting Digitone MKI / Digitone Keys OS 1.44 only, with elekloader's shared machine SDK alpha.
+DN1-LAB is an independent research lab for experimental synthesis engines and tooling for the Elektron Digitone MKI. This GitHub integration contains the three shared machine SDK-alpha 0.2.2 source engines and manifests, a community catalogue, documentation, a static Workbench and metadata validation tools.
 
-### Quick start
+**Documented target:** Digitone MKI / Digitone Keys OS 1.44. **Evidence claimed here: L2 (host tests performed in the preparation environment).**
 
-- [Workbench — catalogue and local planner](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/)
+### Quick links
+
+- [Workbench](https://jickssa.github.io/DN1-LAB-0.2.1-alpha/workbench/) — module selection and local JSON plan.
 - [Technical overview](docs/TECHNICAL-OVERVIEW.md)
-- [Instrument guide](docs/INSTRUMENTS.md)
-- [Validation report](docs/VALIDATION.md)
-- [Architecture and SDK port](docs/ALPHA-PORT.md)
-- [Research state](docs/RESEARCH.md)
+- [Instrument guide (EN)](docs/INSTRUMENTS.en.md) · [Guide des instruments (FR)](docs/INSTRUMENTS.md)
+- [Validation and limitations](docs/VALIDATION.md)
+- [SDK-alpha port](docs/ALPHA-PORT.md)
+- [Research and prior art](docs/RESEARCH.md)
 - [Contributing](CONTRIBUTING.md)
 
 ### Included engines
 
-| Machine | ID | Synthesis | SDK controls | Status |
-|---|---:|---|---:|---|
-| KARST — Modal Matter | 100 | Inharmonic modal resonators and virtual materials | 15 | Host tests pass; ColdFire build / hardware unverified |
-| MORPHANT — Formant Organism | 101 | Six partials, formant profiles and three distinct textures | 15 | Host tests pass; ColdFire build / hardware unverified |
-| TESSERA — Phase Lattice | 102 | Two coupled phase accumulators, feedback and wavefolding | 15 | Host tests pass; ColdFire build / hardware unverified |
+| Machine | ID | Model | Status |
+|---|---:|---|---|
+| KARST — Modal Matter | 100 | Three inharmonic modal resonators | SDK-alpha source, L2 host tests |
+| MORPHANT — Formant Organism | 101 | Six additive partials, formant morphing, three textures | SDK-alpha source, L2 host tests |
+| TESSERA — Phase Lattice | 102 | Two coupled phase accumulators, feedback and fold | SDK-alpha source, L2 host tests |
 
-The legacy `modules/` tree remains available for the 0.1.1 `dnm_machine` API. `sdk-alpha/` contains a separate port using `struct elek_machine` and `ELEK_REGISTER_MACHINE`.
+The SDK-alpha port is in sdk-alpha/. The legacy modules/ branch and tests/ harness from the 0.2.2-alpha source archive are not yet present in this GitHub integration; full local test results are described in the validation report. GitHub CI therefore does not claim to compile against the target SDK or rerun the absent DSP suite.
 
-### Local validation
+### Checks actually available in this repository
 
-Requirements: Python 3, GCC or Clang, POSIX shell environment. Run from the repository root:
+    python3 tools/validate_catalogue.py
+    python3 tools/validate_site.py
+    python3 -m compileall -q tools
 
-```sh
-sha256sum -c SHA256SUMS.txt
-python3 tests/validate_alpha_manifests.py
-python3 tools/validate_catalogue.py
-python3 tools/validate_site.py
-./tests/run_alpha_tests.sh
-./tests/run_alpha_production_like.sh
-./tests/run_alpha_sanitizers.sh
-./tests/run_alpha_analyzer.sh
-```
-
-Legacy tests are `./tests/run_host_tests.sh`, `./tests/run_sanitizers.sh`, `python3 tests/validate_metadata.py` and `python3 tests/test_tessera_fold.py`.
+These checks validate catalogue/SDK/C-ID consistency and local static-site links. They do not compile the engines against the target SDK.
 
 ### Critical limitations
 
-This is a source and host-test alpha package. No ColdFire `.elemod` or modified firmware `.syx` is included. The real elekloader checkout/build, linker, upstream host runner, emulator and physical Digitone have not been validated here. Host tests do not establish real-time budget or hardware compatibility. Read [VALIDATION.md](docs/VALIDATION.md) before any porting attempt.
-
-The Workbench locally hashes a user-selected file in the browser and exports a JSON plan; it **does not modify** firmware or send files to a server.
+No ColdFire .elemod or modified firmware .syx is supplied. The actual upstream build, combined linker, official host runner, emulator and physical Digitone have not been validated. Host tests do not prove a real-time budget or hardware compatibility. The Workbench hashes a user-selected file locally and exports a JSON plan; it does not fully parse ELE3, compile, patch or flash firmware.
 
 ### Community
 
-French and English contributions are welcome: [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). GitHub Pages must be configured to use “GitHub Actions” under Settings → Pages before the site URL becomes live; Discussions must also be enabled in repository settings.
+Contributions in French and English are welcome: [Discussions](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions), [Issues](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/issues), [Pull Requests](https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/pulls). An administrator must enable Discussions and configure GitHub Pages in repository settings.
