@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "PHOTON",
+  "id": 107,
+  "id_status": "provisional-not-linker-validated",
+  "status": "host-prototype",
+  "buildable": false,
+  "hardware_certified": false,
+  "target": {
+    "instrument": "Elektron Digitone MKI / Digitone Keys",
+    "os_reference": "1.44",
+    "sdk": "elekloader shared machine SDK alpha (host subset only for this prototype)"
+  },
+  "state_bytes_host": 40,
+  "state_limit_bytes": 256,
+  "controls": [
+    "PULSE",
+    "REFL",
+    "COUP",
+    "DIFF",
+    "DENS",
+    "DECAY",
+    "RATIO",
+    "SHIFT",
+    "SYNC",
+    "FDBK",
+    "HARD",
+    "SOFT",
+    "VELOC",
+    "JITR",
+    "MIX"
+  ],
+  "pages": [
+    "EVENTS",
+    "PHASE"
+  ],
+  "architecture": "Sparse periodic phase events excite a four-node reflection network; feedback is now an explicit bounded transfer.",
+  "limitations": "Event cadence is block/sample-rate state, not an arbitrary event queue. Phase discontinuity and aliasing need target validation.",
+  "source": "prototypes/photon/machine.c",
+  "host_validation": "tests/run_prototype_tests.sh",
+  "audio_preview": "audio-prototypes/PHOTON-host-preview.wav"
+}

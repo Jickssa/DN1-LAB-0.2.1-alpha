@@ -1,4 +1,4 @@
-name: DN1-LAB repository checks
+name: DN1-LAB repository and prototype validation
 
 on:
   push:
@@ -10,25 +10,27 @@ permissions:
   contents: read
 
 jobs:
-  metadata-and-site:
-    name: Catalogue and static-site validation
+  metadata:
+    name: Repository metadata and prototype manifests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate catalogue against SDK sources
+      - name: Validate existing catalogue
         run: python3 tools/validate_catalogue.py
       - name: Validate static-site references
         run: python3 tools/validate_site.py
-      - name: Compile Python validators
-        run: python3 -m compileall -q tools
-      - name: Check guarded build script syntax
-        run: sh -n scripts/build_digitone_alpha.sh
-      - name: Parse all checked-in JSON manifests
+      - name: Validate six new prototype manifests
+        run: python3 tests/validate_prototypes.py
+      - name: Compile Python tooling
+        run: python3 -m compileall -q tools tests
+      - name: Check shell syntax
+        run: |
+          sh -n scripts/build_digitone_alpha.sh
+          for f in tests/run_prototype_*.sh; do sh -n "$f"; done
+      - name: Parse checked-in JSON
         run: |
           python3 - <<'PY'
           import json
@@ -39,3 +41,41 @@ jobs:
               print(f'PASS {path}')
           print(f'Validated {len(files)} JSON files')
           PY
+
+  host-dsp:
+    name: Six prototype DSP tests (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run host prototype tests
+        env:
+          CC: ${{ matrix.compiler }}
+        run: sh tests/run_prototype_tests.sh
+
+  sanitizers:
+    name: ASan and UBSan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run GCC and Clang prototype sanitizers
+        run: sh tests/run_prototype_sanitizers.sh
+
+  static-analysis:
+    name: GCC and Clang static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Analyze six prototype engines
+        run: sh tests/run_prototype_analyzers.sh
+
+  reproducibility:
+    name: GCC / Clang preview reproducibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare all six WAV renders
+        run: sh tests/run_prototype_reproducibility.sh

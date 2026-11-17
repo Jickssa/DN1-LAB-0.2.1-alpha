@@ -1,0 +1,96 @@
+{
+  "version": "0.3.0-alpha",
+  "status": "host-prototypes-only",
+  "machines": [
+    {
+      "name": "VESPER",
+      "id": 103,
+      "id_status": "provisional",
+      "state_bytes_host": 60,
+      "controls": 15,
+      "pages": [
+        "MEMORY",
+        "EXCITE"
+      ],
+      "source": "vesper/machine.c",
+      "preview": "../../audio-prototypes/VESPER-host-preview.wav",
+      "description": "Short 32-cell signed excitation stencil, reversible read head, two damped resonant poles.",
+      "limitation": "The all-knobs-min and all-knobs-max corners can intentionally produce near-silence (e.g. no strike with a frozen memory); nominal patch is audible."
+    },
+    {
+      "name": "MYCEL",
+      "id": 104,
+      "id_status": "provisional",
+      "state_bytes_host": 40,
+      "controls": 15,
+      "pages": [
+        "NETWORK",
+        "MATTER"
+      ],
+      "source": "mycel/machine.c",
+      "preview": "../../audio-prototypes/MYCEL-host-preview.wav",
+      "description": "Four resonant nodes with six symmetric edges, bounded energy transfer and damping.",
+      "limitation": "Not a complete physical model; topology interpolation and coupling coefficients require target-CPU profiling."
+    },
+    {
+      "name": "ORBITAL",
+      "id": 105,
+      "id_status": "provisional",
+      "state_bytes_host": 44,
+      "controls": 15,
+      "pages": [
+        "FIELD",
+        "MOTION"
+      ],
+      "source": "orbital/machine.c",
+      "preview": "../../audio-prototypes/ORBITAL-host-preview.wav",
+      "description": "Path-dependent two-coordinate harmonic field with stored coordinates, hysteresis and bounded partial bank.",
+      "limitation": "The host path-dependence test passes; anti-aliasing and worst-case ColdFire cost are not yet established."
+    },
+    {
+      "name": "LITHOS",
+      "id": 106,
+      "id_status": "provisional",
+      "state_bytes_host": 44,
+      "controls": 15,
+      "pages": [
+        "EROSION",
+        "GRAIN"
+      ],
+      "source": "lithos/machine.c",
+      "preview": "../../audio-prototypes/LITHOS-host-preview.wav",
+      "description": "Six additive partials fed by smooth, granular and fractured energy reservoirs with bounded transfers.",
+      "limitation": "No FFT is used. Energy transfer is conservative up to integer rounding; excitation and damping are explicit."
+    },
+    {
+      "name": "PHOTON",
+      "id": 107,
+      "id_status": "provisional",
+      "state_bytes_host": 40,
+      "controls": 15,
+      "pages": [
+        "EVENTS",
+        "PHASE"
+      ],
+      "source": "photon/machine.c",
+      "preview": "../../audio-prototypes/PHOTON-host-preview.wav",
+      "description": "Sparse periodic phase events excite a four-node reflection network; feedback is now an explicit bounded transfer.",
+      "limitation": "Event cadence is block/sample-rate state, not an arbitrary event queue. Phase discontinuity and aliasing need target validation."
+    },
+    {
+      "name": "ANIMA",
+      "id": 108,
+      "id_status": "provisional",
+      "state_bytes_host": 56,
+      "controls": 15,
+      "pages": [
+        "ECOLOGY",
+        "MEMORY"
+      ],
+      "source": "anima/machine.c",
+      "preview": "../../audio-prototypes/ANIMA-host-preview.wav",
+      "description": "Four autonomous virtual agents share slow activity and memory values inside one voice.",
+      "limitation": "This is only the safe voice-local fallback. No inter-voice shared bus or static global state is implemented."
+    }
+  ]
+}

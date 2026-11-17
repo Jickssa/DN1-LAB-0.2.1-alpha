@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "ANIMA",
+  "id": 108,
+  "id_status": "provisional-not-linker-validated",
+  "status": "host-prototype",
+  "buildable": false,
+  "hardware_certified": false,
+  "target": {
+    "instrument": "Elektron Digitone MKI / Digitone Keys",
+    "os_reference": "1.44",
+    "sdk": "elekloader shared machine SDK alpha (host subset only for this prototype)"
+  },
+  "state_bytes_host": 56,
+  "state_limit_bytes": 256,
+  "controls": [
+    "POPUL",
+    "COHES",
+    "MUTL",
+    "PRESS",
+    "DENS",
+    "TENS",
+    "BIAS",
+    "DIFF",
+    "MEM",
+    "DECAY",
+    "SYNC",
+    "LOCAL",
+    "GLOB",
+    "SEED",
+    "MIX"
+  ],
+  "pages": [
+    "ECOLOGY",
+    "MEMORY"
+  ],
+  "architecture": "Four autonomous virtual agents share slow activity and memory values inside one voice.",
+  "limitations": "This is only the safe voice-local fallback. No inter-voice shared bus or static global state is implemented.",
+  "source": "prototypes/anima/machine.c",
+  "host_validation": "tests/run_prototype_tests.sh",
+  "audio_preview": "audio-prototypes/ANIMA-host-preview.wav"
+}

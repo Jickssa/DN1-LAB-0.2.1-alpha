@@ -20,6 +20,16 @@ DN1-LAB est un laboratoire indépendant de moteurs de synthèse et d'outils de r
 - [Recherche et antériorité](docs/RESEARCH.md)
 - [Contribuer](CONTRIBUTING.md)
 
+### Prototypes DSP additionnels (0.3.0-alpha)
+
+Six nouveaux moteurs expérimentaux sont maintenant présents dans `prototypes/` : VESPER (mémoire résonante), MYCEL (réseau de résonateurs couplés), ORBITAL (champ harmonique à hystérésis de trajectoire), LITHOS (érosion spectrale), PHOTON (impulsions de phase) et ANIMA (écologie locale à quatre agents). Ils disposent chacun de quinze contrôles, deux pages et d'un état hôte de 40 à 60 octets. Les IDs 103–108 restent provisoires. Les sources sont séparées de `sdk-alpha/` et ne sont pas intégrées au script de firmware.
+
+- [Description des prototypes](docs/PROTOTYPES.md)
+- [Validation mesurée et limites](docs/PROTOTYPE-VALIDATION.md)
+- Préécoutes WAV : `audio-prototypes/`
+
+ANIMA est uniquement le repli à quatre agents dans une voix ; aucun bus inter-voix n'est implémenté. Les six moteurs sont des prototypes hôte, pas des modules `.elemod` installables.
+
 ### Moteurs inclus
 
 | Machine | ID | Modèle |

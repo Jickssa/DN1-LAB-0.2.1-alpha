@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "LITHOS",
+  "id": 106,
+  "id_status": "provisional-not-linker-validated",
+  "status": "host-prototype",
+  "buildable": false,
+  "hardware_certified": false,
+  "target": {
+    "instrument": "Elektron Digitone MKI / Digitone Keys",
+    "os_reference": "1.44",
+    "sdk": "elekloader shared machine SDK alpha (host subset only for this prototype)"
+  },
+  "state_bytes_host": 44,
+  "state_limit_bytes": 256,
+  "controls": [
+    "ERODE",
+    "DEPOS",
+    "FRACT",
+    "GRAIN",
+    "POROS",
+    "SEAM",
+    "DUST",
+    "MASS",
+    "WEAR",
+    "REPR",
+    "TILT",
+    "SPRD",
+    "HIT",
+    "DECAY",
+    "MIX"
+  ],
+  "pages": [
+    "EROSION",
+    "GRAIN"
+  ],
+  "architecture": "Six additive partials fed by smooth, granular and fractured energy reservoirs with bounded transfers.",
+  "limitations": "No FFT is used. Energy transfer is conservative up to integer rounding; excitation and damping are explicit.",
+  "source": "prototypes/lithos/machine.c",
+  "host_validation": "tests/run_prototype_tests.sh",
+  "audio_preview": "audio-prototypes/LITHOS-host-preview.wav"
+}
