@@ -21,27 +21,26 @@ Cible documentaire : Digitone MKI / Digitone Keys OS 1.44, shared elekloader mac
 
 Le harnais alpha a rendu 2 081 888 échantillons hôte sans clamp dur signalé par son compteur de test. Les huit lanes ont été testées séparément pour leur état : ce n'est pas un mixage natif de huit voix mesuré, ni une mesure de cycles ColdFire.
 
-## Reproduction depuis un clone propre
+## Reproduction locale
 
-Les sources de tests, l'ancien port 0.1.1 et les scripts sont fournis dans `source-bundles/dn1-lab-0.2.2-alpha-host-source.tar.gz`. Le bundle est vérifié par SHA-256 avant extraction :
+Le paquet DN1-LAB 0.2.2-alpha contient les suites de tests, scripts, anciens modules et headers hôtes. Dans l'environnement local de préparation, les commandes suivantes ont été exécutées avec les résultats du tableau ci-dessus :
 
-    ./scripts/unpack_source_bundle.sh
-    python3 tests/validate_alpha_manifests.py
-    python3 tools/validate_catalogue.py
-    python3 tools/validate_site.py
-    CC=gcc ./tests/run_alpha_tests.sh
-    CC=clang ./tests/run_alpha_tests.sh
-    CC=gcc ./tests/run_alpha_production_like.sh
-    CC=clang ./tests/run_alpha_production_like.sh
-    CC=gcc ./tests/run_alpha_sanitizers.sh
-    CC=clang ./tests/run_alpha_sanitizers.sh
-    CC=gcc ./tests/run_alpha_analyzer.sh
-    CC=gcc ./tests/run_host_tests.sh
-    CC=gcc ./tests/run_sanitizers.sh
-    python3 tests/validate_metadata.py
-    python3 tests/test_tessera_fold.py
+```sh
+python3 tests/validate_alpha_manifests.py
+CC=gcc ./tests/run_alpha_tests.sh
+CC=clang ./tests/run_alpha_tests.sh
+CC=gcc ./tests/run_alpha_production_like.sh
+CC=clang ./tests/run_alpha_production_like.sh
+CC=gcc ./tests/run_alpha_sanitizers.sh
+CC=clang ./tests/run_alpha_sanitizers.sh
+CC=gcc ./tests/run_alpha_analyzer.sh
+CC=gcc ./tests/run_host_tests.sh
+CC=gcc ./tests/run_sanitizers.sh
+python3 tests/validate_metadata.py
+python3 tests/test_tessera_fold.py
+```
 
-GitHub Actions exécute la suite hôte et les tests historiques avec GCC, et la suite alpha avec Clang. Le vérificateur du firmware stock nécessite le fichier OS 1.44 original fourni localement ; ce fichier propriétaire n'est pas inclus.
+Ces tests ont été exécutés sur le paquet source local et ne sont pas encore rejoués par la CI GitHub de ce dépôt. La CI GitHub vérifie les manifestes catalogue/SDK/IDs, les références locales du site et la syntaxe des validateurs Python. Le vérificateur du firmware stock nécessite le fichier OS 1.44 original fourni localement ; ce fichier propriétaire n'est pas inclus.
 
 ## Identité du firmware stock vérifié
 

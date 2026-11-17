@@ -1,18 +1,17 @@
 # Roadmap / Feuille de route
 
-## Phase 0 — Public foundation and source import
+## Phase 0 — Public foundation
 - [x] Bilingual identity, project goals and contributor documentation.
-- [x] Import three DN1-LAB 0.2.2-alpha shared SDK machine engines.
-- [x] Preserve legacy API/test sources in a SHA-256-verified source bundle.
+- [x] Import three DN1-LAB 0.2.2-alpha shared SDK machine sources and manifests.
 - [x] Add structured machine metadata and validation against source IDs.
 - [x] Add a local Workbench plan exporter and bilingual static site.
+- [ ] Import the complete legacy API, host headers, DSP harness and scripts file-by-file into this repository.
+- [ ] Run all source tests from a clean GitHub checkout.
 
 ## Phase 1 — Reproducible source and CI
-- [x] Validate the source bundle hash before extraction.
-- [x] Run host DSP and legacy regression suites with GCC in CI.
-- [x] Run alpha regression, optimized builds and sanitizers with Clang.
-- [x] Run GCC static analysis and catalogue/site validation.
+- [x] Add metadata, catalogue and website validation in GitHub Actions.
 - [ ] Pin the exact upstream elekloader SDK commit and ColdFire toolchain.
+- [ ] Add CI for DSP host tests, sanitizers and static analysis after test-source import.
 - [ ] Add upstream SDK build and emulator jobs when prerequisites are available.
 
 ## Phase 2 — Community catalogue and Workbench
@@ -23,7 +22,7 @@
 - [ ] Add community module review and provenance workflow.
 
 ## Phase 3 — Firmware preflight
-- [x] Browser-local SHA-256 for a user-selected stock file; no upload.
+- [x] Browser-local SHA-256 for a user-selected file; no upload.
 - [ ] Read-only ELE3/SysEx parser for exact known OS profiles.
 - [ ] Dependency graph and combined machine-ID validation against target linker.
 - [ ] Fully resolved, version-pinned build-plan export.
