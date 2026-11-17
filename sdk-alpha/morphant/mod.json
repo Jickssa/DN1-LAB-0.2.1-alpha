@@ -1,0 +1,15 @@
+{
+  "id": "dn1-lab-morphant",
+  "version": "0.2.2-alpha",
+  "license": "GPL-2.0-or-later",
+  "title": "MORPHANT",
+  "description": "DN1 LAB MORPHANT shared machine SDK alpha; Digitone MKI OS 1.44 only.",
+  "devices": {
+    "digitone-mk1": [
+      "1.44"
+    ]
+  },
+  "sources": [
+    "machine.c"
+  ]
+}
