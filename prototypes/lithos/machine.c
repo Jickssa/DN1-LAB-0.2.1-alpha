@@ -34,7 +34,8 @@ static void lithos_render(const struct elek_voice *v,elek_sample *out)
  }
  for(n=0;n<6;n++){
   int32_t p=v->pitch+(semis[n]+tilt/8+((int32_t)n-2)*spread/64)*65536;
-  if(p<0)p=0;if(p>(127<<16))p=127<<16;
+  if(p<0) p=0;
+  if(p>(127<<16)) p=127<<16;
   inc[n]=elek_phase_inc(p);if(inc[n]>0x7fffffffu)inc[n]=0;
   amp[n]=900+(mass*(int32_t)(6-n)*14)/127;
  }

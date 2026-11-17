@@ -39,7 +39,8 @@ static void anima_render(const struct elek_voice *v,elek_sample *out)
  }
  for(n=0;n<4;n++){
   int32_t p=v->pitch+(intervals[n]+bias/8+(int32_t)n*tension/48)*65536;
-  if(p<0)p=0;if(p>(127<<16))p=127<<16;
+  if(p<0) p=0;
+  if(p>(127<<16)) p=127<<16;
   inc[n]=elek_phase_inc(p);if(inc[n]>0x7fffffffu)inc[n]=0;
  }
  for(i=0;i<ELEK_VOICE_FRAMES;i++){
@@ -58,7 +59,8 @@ static void anima_render(const struct elek_voice *v,elek_sample *out)
   }
   for(n=0;n<4;n++){
    s->activity[n]=next[n];s->memory[n]+=(next[n]-s->memory[n])*(local+1)/1024;
-   if(s->memory[n]<0)s->memory[n]=0;if(s->memory[n]>8500)s->memory[n]=8500;
+   if(s->memory[n]<0) s->memory[n]=0;
+   if(s->memory[n]>8500) s->memory[n]=8500;
    {
     int32_t wave=dn1_sin_q15(s->phase[n]),amp=next[n]*(64+global/2)/128;
     sum+=(wave*amp)>>15;

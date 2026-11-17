@@ -6,12 +6,12 @@ Cette couche ajoute six expériences DSP hôte indépendantes des trois machines
 
 | Moteur | État hôte | Principe | Contrôle distinctif | Préécoute |
 |---|---:|---|---|---|
-| VESPER | 60/256 o | Mémoire d'excitation de 32 cellules + deux résonateurs | TRACE / GRAIN / REV / FREEZ | [WAV](../audio-prototypes/VESPER-host-preview.wav) |
-| MYCEL | 40/256 o | Quatre nœuds résonants, six liens symétriques | TOPO / LINK / MASS | [WAV](../audio-prototypes/MYCEL-host-preview.wav) |
-| ORBITAL | 44/256 o | Champ harmonique piloté par un chemin 2D avec hystérésis | X / Y / PATH / TURN | [WAV](../audio-prototypes/ORBITAL-host-preview.wav) |
-| LITHOS | 44/256 o | Six partiels et trois réservoirs énergétiques de matière | ERODE / DEPOS / FRACT | [WAV](../audio-prototypes/LITHOS-host-preview.wav) |
-| PHOTON | 40/256 o | Impulsions clairsemées dans un réseau de phase à quatre nœuds | PULSE / REFLECT / COUPLE | [WAV](../audio-prototypes/PHOTON-host-preview.wav) |
-| ANIMA | 56/256 o | Écologie de quatre agents **à l'intérieur d'une voix** | POPUL / COHES / MUTUAL | [WAV](../audio-prototypes/ANIMA-host-preview.wav) |
+| VESPER | 60/256 o | Mémoire d'excitation de 32 cellules + deux résonateurs | TRACE / GRAIN / REV / FREEZ | WAV dans l'archive |
+| MYCEL | 40/256 o | Quatre nœuds résonants, six liens symétriques | TOPO / LINK / MASS | WAV dans l'archive |
+| ORBITAL | 44/256 o | Champ harmonique piloté par un chemin 2D avec hystérésis | X / Y / PATH / TURN | WAV dans l'archive |
+| LITHOS | 44/256 o | Six partiels et trois réservoirs énergétiques de matière | ERODE / DEPOS / FRACT | WAV dans l'archive |
+| PHOTON | 40/256 o | Impulsions clairsemées dans un réseau de phase à quatre nœuds | PULSE / REFLECT / COUPLE | WAV dans l'archive |
+| ANIMA | 56/256 o | Écologie de quatre agents **à l'intérieur d'une voix** | POPUL / COHES / MUTUAL | WAV dans l'archive |
 
 Les nombres d'état sont obtenus par `sizeof(struct ..._state)` dans les six sources hôte et restent largement sous le plafond SDK théorique de 256 octets. Cela ne prouve pas le coût CPU ni la compatibilité de l'adaptateur sur ColdFire.
 
@@ -47,7 +47,7 @@ CC=clang ./tests/run_prototype_tests.sh
 ./tests/run_prototype_demos.sh
 ```
 
-Les WAV sont mono, 48 kHz, 16 bits ; quatre notes MIDI 36/48/60/72 sont rendues avec les paramètres par défaut. Le fondu final est appliqué par le générateur de démo hôte, pas par les moteurs ; il ne simule pas exactement l'enveloppe AMP native. Les préécoutes sont des rendus sans le filtre, chorus, delay, reverb ni mixage natif du Digitone.
+Les six WAV sont fournis dans le dossier `audio-prototypes/` de l’archive locale de livraison (ils ne sont pas suivis dans cette branche GitHub afin de garder le dépôt léger). Ils sont mono, 48 kHz, 16 bits ; quatre notes MIDI 36/48/60/72 sont rendues avec les paramètres par défaut. Le fondu final est appliqué par le générateur de démo hôte, pas par les moteurs ; il ne simule pas exactement l'enveloppe AMP native. Les préécoutes sont des rendus sans le filtre, chorus, delay, reverb ni mixage natif du Digitone.
 
 ## État de validation et limites
 
