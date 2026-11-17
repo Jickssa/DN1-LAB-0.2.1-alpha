@@ -1,0 +1,34 @@
+name: Feature proposal / Proposition
+about: Propose a capability or sound engine / Proposer une fonction ou une machine
+title: "[PROPOSAL] "
+labels: enhancement
+assignees: ""
+
+body:
+  - type: markdown
+    attributes:
+      value: "Complete in French or English. / À compléter en français ou en anglais."
+  - type: textarea
+    id: goal
+    attributes:
+      label: "Goal / Objectif"
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: "Design and controls / Conception et paramètres"
+  - type: textarea
+    id: constraints
+    attributes:
+      label: "Target and resources / Cible et ressources"
+      description: "Hardware, OS, SDK, API, CPU, memory, voice budget."
+  - type: textarea
+    id: prior_art
+    attributes:
+      label: "Prior art / Antériorité"
+      description: "Related instruments, algorithms, papers or products."
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "Acceptance criteria / Critères d'acceptation"

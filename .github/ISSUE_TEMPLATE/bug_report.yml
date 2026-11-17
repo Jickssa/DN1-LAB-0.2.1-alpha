@@ -1,0 +1,29 @@
+name: Bug report / Rapport de bug
+about: Report a reproducible defect / Signaler un défaut reproductible
+title: "[BUG] "
+labels: bug
+assignees: ""
+
+body:
+  - type: markdown
+    attributes:
+      value: "Complete in French or English. / À compléter en français ou en anglais."
+  - type: textarea
+    id: environment
+    attributes:
+      label: "Environment / Environnement"
+      description: "DN1-LAB commit, Digitone model, exact OS, SDK, compiler. / Commit, modèle, OS exact, SDK, compilateur."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Reproduction / Reproduction"
+      description: "Steps, expected and observed behavior. / Étapes, résultat attendu et constaté."
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs and evidence / Journaux et preuves"
+      description: "Attach sanitized logs, tests or audio if relevant."

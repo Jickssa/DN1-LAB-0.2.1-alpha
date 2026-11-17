@@ -1,0 +1,22 @@
+title: Idea / Idée
+body:
+  - type: markdown
+    attributes:
+      value: "Share the sonic goal, technical approach and references. / Décrivez l'objectif sonore, l'approche technique et les références."
+  - type: textarea
+    id: concept
+    attributes:
+      label: "Concept / Concept"
+      description: "What should this make possible? / Que doit permettre cette idée ?"
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: "Constraints / Contraintes"
+      description: "Target OS, SDK, CPU, memory and voices."
+  - type: textarea
+    id: references
+    attributes:
+      label: "References / Références"
+      description: "Related instruments, papers, algorithms or sound examples."
