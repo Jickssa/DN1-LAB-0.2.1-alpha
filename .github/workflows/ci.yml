@@ -26,6 +26,8 @@ jobs:
         run: python3 tools/validate_site.py
       - name: Compile Python validators
         run: python3 -m compileall -q tools
+      - name: Check guarded build script syntax
+        run: sh -n scripts/build_digitone_alpha.sh
       - name: Parse all checked-in JSON manifests
         run: |
           python3 - <<'PY'
