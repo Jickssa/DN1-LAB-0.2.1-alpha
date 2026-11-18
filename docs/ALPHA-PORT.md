@@ -56,3 +56,10 @@ Le script construit core et compagnon, puis les trois machines ; il lance ensuit
 - https://github.com/elekloader/elekloader/tree/main/mods/machines-dn1
 - https://github.com/elekloader/elekloader/tree/main/mods/core-dn1
 - https://github.com/elekloader/elekloader/blob/main/docs/TESTS.md
+
+
+## Périmètre du port et prototypes 0.3.0-alpha
+
+Le builder `scripts/build_digitone_alpha.sh` ne construit que les trois machines SDK alpha de `sdk-alpha/` (KARST, MORPHANT, TESSERA). Il ne compile pas les répertoires `prototypes/`.
+
+Les prototypes VESPER, MYCEL, ORBITAL, LITHOS, PHOTON et ANIMA utilisent un sous-ensemble local de l'interface dans `host/include/` pour leurs tests hôte. Ce sous-ensemble n'est pas un remplacement des headers upstream et n'est pas qualifié ABI. Avant tout portage, il faut intégrer chaque source au vrai SDK, vérifier son layout, son descripteur et son coût cycles/bloc, puis le construire et le lier avec les compagnons OS 1.44. Les IDs 103–108 ne sont que des candidats.

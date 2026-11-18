@@ -1,4 +1,4 @@
-# Validation DN1-LAB 0.3.0-alpha — prototypes
+# Validation DN1-LAB 0.3.0-alpha — prototypes (L2, hôte uniquement)
 
 ## Résultats mesurés sur hôte
 
@@ -43,3 +43,7 @@ Les pics huit lanes sont des maxima de blocs rendus avec huit structures d'état
 - Pas de validation du mix polyphonique, du chemin enveloppe/filtre/effets ni du comportement de vol de voix sur Digitone.
 
 Les résultats positifs de l'hôte ne doivent pas être interprétés comme une certification temps réel ou firmware.
+
+## Niveau de preuve
+
+Les six prototypes sont **L2 — tests hôte automatisés**. Ce niveau signifie que les sources ont passé les suites hôte publiées et CI ; il ne garantit pas le layout ABI du SDK réel, la compilation ColdFire, le coût temps réel, l'émulation ou le matériel. Les IDs 103–108 restent candidats.

@@ -1,4 +1,4 @@
-# DN1-LAB 0.2.2-alpha — Instrument guide
+# DN1-LAB 0.3.0-alpha — Instrument guide
 
 The controls below reflect the shared machine SDK alpha source declarations. Values are logical knob ranges, not raw 8.8 SYN words. The two custom pages are exposed in the Digitone MKI track's SYN2 area.
 
@@ -87,3 +87,8 @@ DUST was removed because its layer duplicated NOIS. BITS=0 disables quantization
 5. Repeat in an emulator before testing on the instrument.
 
 These are programming notes, not preset .syx or .dnprj files.
+
+
+## Separate host prototypes
+
+VESPER, MYCEL, ORBITAL, LITHOS, PHOTON and ANIMA are documented separately in [PROTOTYPES.md](PROTOTYPES.md). They are host-tested research prototypes (L2), not machines in the shared SDK-alpha catalogue, and are not installable firmware modules. Their candidate IDs 103–108 require combined-linker validation.

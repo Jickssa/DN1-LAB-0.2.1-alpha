@@ -1,60 +1,110 @@
-# DN1-LAB technical overview / Présentation technique
+# DN1-LAB 0.3.0-alpha — technical overview / Présentation technique
 
 ## Français
 
-Version source : 0.2.2-alpha. Cible documentaire : Digitone MKI / Digitone Keys OS 1.44. Niveau de preuve : L2 — tests hôte, pas de certification matérielle.
+DN1-LAB est un laboratoire de moteurs DSP et de validation pour Digitone MKI / Digitone Keys. La cible documentaire est OS 1.44. Le dépôt comprend deux ensembles logiciels qui doivent rester distincts.
 
-DN1-LAB rassemble trois moteurs DSP natifs. Ils remplacent le générateur FM de la piste concernée, puis réutilisent le trajet natif du Digitone : enveloppe AMP, filtre, mixeur, chorus, delay, reverb et sortie. Ce sont des synthèses algorithmiques, pas des lecteurs de samples.
+### A. Trois moteurs shared machine SDK alpha (L2, tests hôte)
 
-### KARST — Modal Matter (ID 100)
-Trois résonateurs modaux du second ordre, rapports partiels inharmoniques et huit familles de matière : bois, métal, verre, membrane, cloche, pierre, tube et cristal. L'excitation combine frappe initiale, bruit et frottement ; chaque mode a son amortissement et sa pondération.
+Les sources `sdk-alpha/` déclarent des machines avec `struct elek_machine` et `ELEK_REGISTER_MACHINE` :
 
-### MORPHANT — Formant Organism (ID 101)
-Synthèse additive à six partiels et cinq profils spectraux inspirés des voyelles A/E/I/O/U. Morphing continu, vibrato, sous-octave et trois textures distinctes : BRETH (bruit lent filtré), NOIS (large bande), AIR (hautes fréquences). Les profils sont des références acoustiques, non une simulation anatomique. Les mémoires de filtres sont réinitialisées au retrigger.
+- **KARST (ID 100)** : trois résonateurs modaux du second ordre, partiels inharmoniques et excitation par frappe/bruit/frottement.
+- **MORPHANT (ID 101)** : six partiels additifs, profils spectraux inspirés des voyelles, morphing, vibrato et textures BRETH/NOIS/AIR.
+- **TESSERA (ID 102)** : deux accumulateurs de phase couplés, modulation à fréquence audio, feedback borné, skew, sync, ring blend et fold.
 
-### TESSERA — Phase Lattice (ID 102)
-Deux accumulateurs de phase couplés ; modulation de phase à fréquence audio, feedback borné, skew, synchronisation, mélange en anneau, repliement asymétrique, sous-octave et textures numériques. La stabilité sur cible et le budget temps réel doivent encore être mesurés.
+Le port vise quinze paramètres logiques maximum, deux pages de contrôle, un état par voix ≤256 octets et un callback de 32 échantillons à 48 kHz selon le SDK partagé consulté. Les valeurs `v->knob[]` sont déjà dans les plages logiques des descripteurs, pas des mots SYN bruts 8.8.
 
-### Branches de code
-- modules/ : API historique dnm_machine, 0.1.1, 16 contrôles basés sur SYN1/SYN2.
-- sdk-alpha/ : port séparé elek_machine, ELEK_REGISTER_MACHINE, 15 contrôles logiques et deux pages.
-- host/ : adaptateur de test local, pas l'API upstream cible.
-- tests/ et tools/ : tests de régression, analyse numérique, validation manifestes et vérification du firmware stock.
-- catalogue/ : métadonnées machine et propositions de recherche.
-- site/ : site statique FR/EN et Workbench de préparation.
+### B. Six prototypes DSP hôte (L2, tests automatisés, non intégrés au SDK alpha)
 
-Le shared machine SDK alpha visé limite chaque machine à 15 knobs, deux pages de huit positions, un état par voix de 256 octets et un callback de 32 échantillons Q31 à 48 kHz. Les contrats doivent être confirmés contre la version exacte du SDK et du compagnon utilisée lors du build.
+Les sources `prototypes/` sont des expériences hôte, compilées contre un sous-ensemble local de l'interface pour tester les algorithmes et les invariants ; cet en-tête local n'est pas le véritable SDK upstream.
 
-### Build cible et limites
-Le script scripts/build_digitone_alpha.sh attend un checkout elekloader contenant le SDK alpha et les ports Digitone OS 1.44 du core/compagnon, une toolchain ColdFire/M68K et le fichier stock OS 1.44. Ces prérequis n'étaient pas disponibles dans l'environnement ayant produit ce dépôt ; le build cible n'a donc pas été exécuté.
+- **VESPER (103)** : stencil d'excitation 32 cellules, lecture inverse/vitesse variable et deux résonateurs amortis.
+- **MYCEL (104)** : quatre nœuds résonants, six arêtes fixes, transferts d'énergie et pertes.
+- **ORBITAL (105)** : champ harmonique 2D à mémoire de chemin et hystérésis.
+- **LITHOS (106)** : six partiels alimentés par trois réservoirs de matière spectrale.
+- **PHOTON (107)** : événements clairsemés injectés dans un réseau de phase à quatre nœuds.
+- **ANIMA (108)** : quatre agents virtuels partageant activité et mémoire dans une seule voix ; aucune interaction inter-voix.
 
-Aucun .elemod ColdFire, firmware modifié .syx, bootloader modifié, émulateur ni installateur n'est livré. Le Workbench calcule localement une empreinte et exporte un plan JSON ; il ne modifie pas le firmware et n'envoie aucun fichier à un serveur. Ne pas flasher les sources alpha sans compilation cible, intégration, émulation, sauvegarde et vérification matérielle.
+Les IDs 103–108 sont des candidats. Les états hôte mesurés font 40 à 60 octets, mais cette mesure ne garantit ni layout ni ABI cible.
+
+### Architecture du dépôt
+
+| Répertoire | Rôle |
+|---|---|
+| `sdk-alpha/` | Trois portages vers le shared machine SDK alpha |
+| `prototypes/` | Six expériences DSP hôte, hors chemin firmware |
+| `host/` | Sous-ensemble d'API pour les tests hôte des prototypes |
+| `tests/` | Bancs de test, sanitizers, analyse statique, reproductibilité |
+| `tools/` | Validateurs catalogue et site |
+| `catalogue/` | Manifestes des trois machines et fiches des concepts/propositions |
+| `site/` | Page statique bilingue et Workbench de préparation |
+| `scripts/` | Orchestration de build cible des trois machines SDK alpha |
+
+### Pipeline cible envisagé
+
+`manifest -> preflight -> dependency resolution -> ColdFire build -> lint/link combined -> patch stock image -> structural/hash verification -> emulator -> hardware`.
+
+Toute étape échouée bloque la progression. Les versions, commits upstream, empreintes, journaux et résultats doivent être conservés.
+
+Le script `scripts/build_digitone_alpha.sh` concerne uniquement les trois sources SDK alpha dans `sdk-alpha/`. Il attend le checkout upstream elekloader compatible, les compagnons OS 1.44, la toolchain ColdFire et l'entrée firmware stock exacte. Le build cible n'a pas encore été exécuté.
+
+### Limites actuelles
+
+- Aucun `.elemod` ColdFire n'est fourni.
+- Aucun firmware modifié `.syx` n'est fourni.
+- Les IDs 103–108 n'ont pas été validés par le linker combiné.
+- Aucun test DigiKit/digiemu ni test matériel n'est revendiqué.
+- Le budget cycles/bloc ColdFire et le mixage polyphonique simultané restent inconnus.
+- Le Workbench calcule une empreinte locale et exporte un plan JSON ; il ne parse pas intégralement ELE3, ne compile pas, ne patch pas et ne flashe pas.
 
 ## English
 
-Source version: 0.2.2-alpha. Documented target: Digitone MKI / Digitone Keys OS 1.44. Evidence level: L2 — host-tested, not hardware-certified.
+DN1-LAB is a DSP-engine and validation research lab for Digitone MKI / Digitone Keys. The documented target is OS 1.44. The repository contains two software workstreams which must remain separate.
 
-DN1-LAB contains three native DSP engines. They replace the FM generator for the selected track voice and then use the Digitone's native AMP envelope, filter, mixer, chorus, delay, reverb and output chain. These are algorithmic synthesis engines, not sample players.
+### A. Three shared machine SDK-alpha engines (L2, host-tested)
 
-### KARST — Modal Matter (ID 100)
-Three second-order modal resonators, inharmonic partial ratios and eight material families: wood, metal, glass, membrane, bell, stone, tube and crystal. Excitation combines an onset strike, noise and friction; each mode has independent damping and weighting.
+The `sdk-alpha/` sources declare machines through `struct elek_machine` and `ELEK_REGISTER_MACHINE`:
 
-### MORPHANT — Formant Organism (ID 101)
-Six-partial additive synthesis with five vowel-inspired spectral profiles (A/E/I/O/U). Continuous morphing, vibrato, sub-octave and three distinct textures: BRETH (slow filtered noise), NOIS (broadband), AIR (high frequencies). These are acoustic references, not an anatomical vocal model. Filter memories reset on retrigger.
+- **KARST (ID 100):** three second-order modal resonators, inharmonic partials and strike/noise/friction excitation.
+- **MORPHANT (ID 101):** six additive partials, vowel-inspired spectral profiles, morphing, vibrato and BRETH/NOIS/AIR textures.
+- **TESSERA (ID 102):** two coupled phase accumulators, audio-rate modulation, bounded feedback, skew, sync, ring blend and fold.
 
-### TESSERA — Phase Lattice (ID 102)
-Two coupled phase accumulators; audio-rate phase modulation, bounded feedback, skew, synchronization, ring blend, asymmetric wavefolding, sub-octave and digital textures. Target stability and real-time budget still require measurement.
+The port targets up to fifteen logical parameters, two custom pages, up to 256 bytes of per-voice state and a 32-sample callback at 48 kHz under the consulted shared SDK contract. `v->knob[]` values are already mapped into descriptor ranges, not raw SYN 8.8 words.
 
-### Source branches
-- modules/: historical dnm_machine API, 0.1.1, 16 SYN1/SYN2 controls.
-- sdk-alpha/: separate elek_machine port, ELEK_REGISTER_MACHINE, 15 logical controls and two pages.
-- host/: local test adapter, not a replacement for the target upstream API.
-- tests/ and tools/: regression, numerical, manifest and stock-firmware checks.
-- catalogue/: structured machine metadata and research proposals.
-- site/: French/English static site and preparation Workbench.
+### B. Six host DSP prototypes (L2 host-tested, not integrated into SDK alpha)
 
-The target shared machine SDK alpha documents up to 15 knobs, two pages of eight positions, 256 bytes of per-voice state and a 32-sample Q31 callback at 48 kHz. Check these contracts against the exact SDK and companion versions used for a target build.
+The `prototypes/` sources are host experiments built against a local subset of the interface to test algorithms and invariants; this local header is not the upstream SDK.
 
-The build script requires an elekloader checkout with the shared SDK alpha and Digitone OS 1.44 core/companion ports, a ColdFire/M68K toolchain and the stock OS 1.44 image. Those prerequisites were unavailable here, so no target build was executed.
+- **VESPER (103):** 32-cell excitation stencil, reverse/variable-speed readout and two damped resonators.
+- **MYCEL (104):** four resonant nodes, six fixed edges, energy transfer and losses.
+- **ORBITAL (105):** 2D harmonic field with path memory and hysteresis.
+- **LITHOS (106):** six partials fed by three spectral material reservoirs.
+- **PHOTON (107):** sparse events injected into a four-node phase network.
+- **ANIMA (108):** four virtual agents sharing activity and memory inside one voice; no cross-voice interaction.
 
-No ColdFire .elemod, modified .syx, modified bootloader, emulator or installer is provided. The Workbench hashes a local file and exports a JSON plan; it does not modify firmware or upload files. Do not flash alpha sources without target compilation, integration, emulation, backup and hardware validation.
+IDs 103–108 are candidates. Measured host states are 40–60 bytes, but that does not guarantee target layout or ABI.
+
+### Repository layout
+
+| Directory | Role |
+|---|---|
+| `sdk-alpha/` | Three ports to the shared machine SDK alpha |
+| `prototypes/` | Six host DSP experiments, outside the firmware path |
+| `host/` | Local API subset for prototype host tests |
+| `tests/` | Test harnesses, sanitizers, static analysis and reproducibility |
+| `tools/` | Catalogue and site validators |
+| `catalogue/` | Three machine manifests and research proposals |
+| `site/` | Bilingual static page and preparation Workbench |
+| `scripts/` | Target-build orchestration for the three SDK-alpha machines |
+
+### Intended target pipeline
+
+`manifest -> preflight -> dependency resolution -> ColdFire build -> combined lint/link -> patch stock image -> structural/hash verification -> emulator -> hardware`.
+
+Any failed step blocks further progress. Preserve versions, upstream commits, digests, logs and results.
+
+The `scripts/build_digitone_alpha.sh` script only targets the three SDK-alpha sources in `sdk-alpha/`. It requires a compatible elekloader checkout, OS 1.44 companions, a ColdFire toolchain and the exact stock firmware input. The target build has not yet been executed.
+
+### Current limitations
+
+No ColdFire `.elemod` or modified `.syx` is supplied; candidate IDs 103–108 have not been checked by the combined linker; no DigiKit/digiemu or hardware test is claimed; ColdFire cycles per block and simultaneous polyphonic mixing remain unknown. The Workbench hashes a local file and exports a JSON plan only; it does not fully parse ELE3, compile, patch or flash.

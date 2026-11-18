@@ -1,29 +1,65 @@
 name: Bug report / Rapport de bug
-about: Report a reproducible defect / Signaler un défaut reproductible
+description: Report a reproducible code, DSP, test or Workbench defect.
 title: "[BUG] "
-labels: bug
-assignees: ""
-
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
-      value: "Complete in French or English. / À compléter en français ou en anglais."
-  - type: textarea
+      value: "Complete in French or English. Do not attach proprietary firmware, secrets, personal data or unredacted sensitive logs."
+  - type: input
+    id: commit
+    attributes:
+      label: DN1-LAB commit / Commit
+      placeholder: Full commit SHA
+    validations:
+      required: true
+  - type: input
     id: environment
     attributes:
-      label: "Environment / Environnement"
-      description: "DN1-LAB commit, Digitone model, exact OS, SDK, compiler. / Commit, modèle, OS exact, SDK, compilateur."
+      label: Environment / Environnement
+      description: Operating system, GCC/Clang version, Python version, SDK/OS if applicable.
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component / Composant
+      options:
+        - KARST
+        - MORPHANT
+        - TESSERA
+        - VESPER
+        - MYCEL
+        - ORBITAL
+        - LITHOS
+        - PHOTON
+        - ANIMA
+        - Workbench or website
+        - Documentation or CI
+        - Build pipeline
     validations:
       required: true
   - type: textarea
     id: reproduction
     attributes:
-      label: "Reproduction / Reproduction"
-      description: "Steps, expected and observed behavior. / Étapes, résultat attendu et constaté."
+      label: Reproduction steps / Étapes
+      description: Exact commands, parameter values, MIDI notes and steps required to reproduce.
     validations:
       required: true
   - type: textarea
-    id: logs
+    id: expected
     attributes:
-      label: "Logs and evidence / Journaux et preuves"
-      description: "Attach sanitized logs, tests or audio if relevant."
+      label: Expected behavior / Résultat attendu
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior / Résultat observé
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and evidence / Journaux et preuves
+      description: Sanitized compiler output, tests, minimal audio example or screenshot.

@@ -1,0 +1,66 @@
+name: Hardware or emulator validation report / Rapport de validation
+description: Report a controlled test on a Digitone or a supported emulator.
+title: "[VALIDATION] "
+body:
+  - type: markdown
+    attributes:
+      value: "Do not flash experimental firmware merely to complete this form. Only report tests already performed on a recoverable device."
+  - type: input
+    id: project_commit
+    attributes:
+      label: DN1-LAB commit / Commit
+      placeholder: Full commit SHA
+    validations:
+      required: true
+  - type: dropdown
+    id: engine
+    attributes:
+      label: Engine / Moteur
+      options:
+        - KARST
+        - MORPHANT
+        - TESSERA
+        - VESPER
+        - MYCEL
+        - ORBITAL
+        - LITHOS
+        - PHOTON
+        - ANIMA
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS / Appareil et OS
+      placeholder: Exact Digitone model and exact OS version
+    validations:
+      required: true
+  - type: dropdown
+    id: test_type
+    attributes:
+      label: Test environment / Environnement
+      options:
+        - Physical Digitone / Matériel
+        - Emulator
+        - ColdFire target build only
+    validations:
+      required: true
+  - type: textarea
+    id: build
+    attributes:
+      label: Build provenance / Provenance du build
+      description: SDK commit, companion versions, compiler version, artifact digest. Do not attach proprietary firmware.
+    validations:
+      required: true
+  - type: textarea
+    id: procedure
+    attributes:
+      label: Procedure and results / Procédure et résultats
+      description: Test steps, notes, parameter values, voice count, expected and observed behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Limitations and recovery / Limites et récupération
+      description: Known failures, backup and recovery steps, audio or sanitized logs.

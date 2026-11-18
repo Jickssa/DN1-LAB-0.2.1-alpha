@@ -1,6 +1,6 @@
 # VESPER — Resonant Time Loom
 
-**État / Status:** prototype hôte L1 réalisé et testé ; ColdFire, linker combiné et matériel non validés. ID 103 is provisional. **Prior art:** unknown; no claim of uniqueness.
+**État / Status:** prototype hôte L2 validé par tests automatisés GCC/Clang ; ColdFire, linker combiné et matériel non validés. ID 103 is provisional. **Prior art:** unknown; no claim of uniqueness.
 
 ## Intention sonore / Sonic intent
 **FR.** Transformer chaque excitation en empreinte temporelle courte qui traverse un champ de résonances. La note ne relit pas un sample : elle re-parcourt les résidus d'excitation tandis que les modes changent de vitesse, de direction et de décroissance. Sons visés : cordes préparées impossibles, métal granulaire, frottements mémorisant leur attaque.

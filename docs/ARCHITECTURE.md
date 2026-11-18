@@ -19,3 +19,12 @@ A manifest must declare ID, version, target hardware/OS, SDK API, parameters, re
 Target flow: `manifest -> validation -> dependency resolution -> SDK build -> packaging -> integration build -> firmware image -> verification`. Any failed step blocks subsequent work. Logs, versions and hashes are retained for reproducibility.
 
 The host runtime models only documented services; it is not a hardware emulator. Compatibility requires an explicit hardware / OS / SDK matrix and an identifiable evidence level.
+
+
+## Organisation des implémentations / Implementation workstreams
+
+- `sdk-alpha/`: three shared SDK-alpha ports, host-tested (L2), but not yet built or linked for the target.
+- `prototypes/`: six host-tested DSP prototypes (L2), deliberately outside the firmware builder.
+- `host/`: local subset of the API used only by prototype host harnesses; never substitute it for upstream target headers.
+
+Les prototypes disposent de tests hôte complets, mais restent séparés de la chaîne firmware tant que le vrai SDK, l'ABI, le budget cycles/bloc et le linkage combiné n'ont pas été vérifiés.

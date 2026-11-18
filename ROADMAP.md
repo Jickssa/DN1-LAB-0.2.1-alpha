@@ -14,8 +14,8 @@
 - [x] LITHOS : redistribution spectrale entre trois réservoirs.
 - [x] PHOTON : impulsions clairsemées dans un réseau de phase.
 - [x] ANIMA : écologie locale à quatre agents ; repli voix-locale seulement.
-- [x] Tests GCC/Clang, sanitizers, analyse statique, bornes d'état et tests spécifiques.
-- [x] Préécoutes hôte mono 48 kHz.
+- [x] Tests GCC/Clang, sanitizers, analyse statique, bornes d'état et tests spécifiques (CI GitHub 6/6).
+- [x] Préécoutes hôte mono 48 kHz, reproductibles GCC/Clang.
 - [ ] Comparaison d'écoute à l'aveugle et réglage des paramètres avec un musicien.
 - [ ] Mesures cycle/block sur le ColdFire et contrôle anti-aliasing cible.
 - [ ] Audit d'antériorité approfondi par concept et étude du registre d'IDs.

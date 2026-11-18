@@ -22,6 +22,8 @@ jobs:
         run: python3 tools/validate_catalogue.py
       - name: Validate static-site references
         run: python3 tools/validate_site.py
+      - name: Validate relative Markdown links
+        run: python3 tools/validate_docs.py
       - name: Validate six new prototype manifests
         run: python3 tests/validate_prototypes.py
       - name: Compile Python tooling
@@ -30,6 +32,8 @@ jobs:
         run: |
           sh -n scripts/build_digitone_alpha.sh
           for f in tests/run_prototype_*.sh; do sh -n "$f"; done
+      - name: Parse GitHub YAML templates and workflows
+        run: ruby -e 'require "yaml"; Dir.glob(".github/**/*.yml").sort.each { |path| YAML.load_file(path, aliases: true); puts "PASS #{path}" }'
       - name: Parse checked-in JSON
         run: |
           python3 - <<'PY'

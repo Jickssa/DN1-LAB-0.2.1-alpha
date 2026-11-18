@@ -1,6 +1,6 @@
 # DN1-LAB 0.3.0-alpha — six DSP prototypes additionnels
 
-Cette couche ajoute six expériences DSP hôte indépendantes des trois machines SDK alpha déjà portées. Les sources sont volontairement dans `prototypes/`, pas dans `sdk-alpha/` : elles ne sont donc pas prises par le script de construction du firmware. Les identifiants 103–108 sont **provisoires** et n'ont pas été soumis au linker combiné ni au registre complet.
+Cette couche ajoute six prototypes DSP hôte testés (niveau L2 : suite automatisée reproductible) et indépendants des trois machines SDK alpha déjà portées. Les sources sont volontairement dans `prototypes/`, pas dans `sdk-alpha/` : elles ne sont donc pas prises par le script de construction du firmware. Les identifiants 103–108 sont **provisoires** et n'ont pas été soumis au linker combiné ni au registre complet.
 
 ## Vue d'ensemble
 
@@ -56,3 +56,7 @@ Le harnais couvre pour chaque moteur : balayage MIDI 0–127 et min/défaut/max 
 GCC 14.2 et Clang 17 réussissent les tests hôte ; ASan/UBSan et les analyseurs GCC `-fanalyzer` / Clang `--analyze` passent après correction d'un dépassement entier détecté dans le vibrato ORBITAL. Aucun clamp Q15 n'est détecté dans cette suite. Les huit lanes sont huit états indépendants rendus en séquence, **pas** un mixage de huit voix simultanées ni une mesure du DSP matériel.
 
 Aucun des six moteurs n'a encore été compilé avec le vrai header/sdk-builder upstream sur ColdFire, lié avec `core-dn1` et `machines-dn1`, passé dans DigiKit/digiemu, profilé en cycles ou essayé sur un Digitone. Les IDs ne sont pas validés par le linker combiné. Les six prototypes ne sont donc ni des `.elemod` installables ni une image `.syx` prête à flasher.
+
+## Niveau de preuve
+
+Les six prototypes sont au niveau **L2 — tests hôte** : tests automatisés GCC/Clang, sanitizers, analyse statique, invariants et reproductibilité des préécoutes. Ce classement reste strictement hôte ; il ne valide ni l'ABI du véritable SDK, ni le ColdFire, ni l'émulateur, ni le matériel.
