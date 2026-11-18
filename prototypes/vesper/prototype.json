@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "VESPER",
+  "id": 103,
+  "id_status": "provisional-not-linker-validated",
+  "status": "host-prototype",
+  "buildable": false,
+  "hardware_certified": false,
+  "target": {
+    "instrument": "Elektron Digitone MKI / Digitone Keys",
+    "os_reference": "1.44",
+    "sdk": "elekloader shared machine SDK alpha (host subset only for this prototype)"
+  },
+  "state_bytes_host": 60,
+  "state_limit_bytes": 256,
+  "controls": [
+    "TRACE",
+    "GRAIN",
+    "DRIFT",
+    "REV",
+    "FREEZ",
+    "MODES",
+    "DECAY",
+    "FRAY",
+    "BOW",
+    "STRIK",
+    "TILT",
+    "WIDTH",
+    "FEED",
+    "DAMP",
+    "MIX"
+  ],
+  "pages": [
+    "MEMORY",
+    "EXCITE"
+  ],
+  "architecture": "Short 32-cell signed excitation stencil, reversible read head, two damped resonant poles.",
+  "limitations": "The all-knobs-min and all-knobs-max corners can intentionally produce near-silence (e.g. no strike with a frozen memory); nominal patch is audible.",
+  "source": "prototypes/vesper/machine.c",
+  "host_validation": "tests/run_prototype_tests.sh",
+  "audio_preview": "audio-prototypes/VESPER-host-preview.wav"
+}

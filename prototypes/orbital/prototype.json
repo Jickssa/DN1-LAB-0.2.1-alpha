@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "name": "ORBITAL",
+  "id": 105,
+  "id_status": "provisional-not-linker-validated",
+  "status": "host-prototype",
+  "buildable": false,
+  "hardware_certified": false,
+  "target": {
+    "instrument": "Elektron Digitone MKI / Digitone Keys",
+    "os_reference": "1.44",
+    "sdk": "elekloader shared machine SDK alpha (host subset only for this prototype)"
+  },
+  "state_bytes_host": 44,
+  "state_limit_bytes": 256,
+  "controls": [
+    "X",
+    "Y",
+    "PATH",
+    "TURN",
+    "FIELD",
+    "HARM",
+    "SPRD",
+    "LOCK",
+    "FRIC",
+    "SLEW",
+    "FOLD",
+    "SUB",
+    "NOIS",
+    "VIB",
+    "MIX"
+  ],
+  "pages": [
+    "FIELD",
+    "MOTION"
+  ],
+  "architecture": "Path-dependent two-coordinate harmonic field with stored coordinates, hysteresis and bounded partial bank.",
+  "limitations": "The host path-dependence test passes; anti-aliasing and worst-case ColdFire cost are not yet established.",
+  "source": "prototypes/orbital/machine.c",
+  "host_validation": "tests/run_prototype_tests.sh",
+  "audio_preview": "audio-prototypes/ORBITAL-host-preview.wav"
+}

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions / Idées et questions
+    url: https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/discussions
+    about: Use Discussions for design ideas and open questions when enabled.
+  - name: Getting started / Guide de démarrage
+    url: https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/blob/main/docs/START-HERE.md
+    about: Read the project scope, test commands and hardware limitations first.
+  - name: Security policy / Politique de sécurité
+    url: https://github.com/Jickssa/DN1-LAB-0.2.1-alpha/blob/main/SECURITY.md
+    about: Do not report sensitive vulnerabilities in a public Issue.

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "slug": "morphant",
+  "name": "MORPHANT — Formant Organism",
+  "machine_id": 101,
+  "package_id": "dn1-lab-morphant",
+  "version": "0.2.2-alpha",
+  "status": "host-tested-alpha",
+  "target": {
+    "hardware": ["Elektron Digitone MKI", "Elektron Digitone Keys"],
+    "os": ["1.44"],
+    "sdk": "elekloader shared machine SDK alpha"
+  },
+  "synthesis": "Six-partial additive engine with vowel-inspired spectral envelopes, continuous morphing, vibrato, sub oscillator and three distinct breath/noise/air textures.",
+  "control_count": 15,
+  "custom_pages": 2,
+  "machine_state_bytes_max": 256,
+  "license": "GPL-2.0-or-later",
+  "source": "sdk-alpha/morphant/",
+  "validation": {
+    "level": "L2",
+    "host_tests": true,
+    "target_sdk_build": false,
+    "emulator": false,
+    "hardware": false,
+    "notes": "Includes a bit-identical retrigger regression for the BRETH/AIR filter state. No ColdFire build or device test is claimed."
+  },
+  "capabilities": ["additive-synthesis", "formant-morph", "vibrato", "sub-oscillator", "filtered-breath", "broadband-noise", "high-frequency-air"]
+}

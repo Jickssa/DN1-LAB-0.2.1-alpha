@@ -1,0 +1,30 @@
+# Host build products
+host/alpha_test
+host/alpha_test_san
+host/host_test
+host/host_test_san
+*.o
+*.a
+*.so
+*.elf
+*.elemod
+
+# Generated audio renders (keep OGG demos)
+*.wav
+
+# Local firmware inputs
+firmware/*.bin
+firmware/*.syx
+firmware/*.hex
+*.syx
+
+# Python and OS artefacts
+__pycache__/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+
+# Build output
+build/
+dist/
+artifacts/

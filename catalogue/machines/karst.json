@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "slug": "karst",
+  "name": "KARST — Modal Matter",
+  "machine_id": 100,
+  "package_id": "dn1-lab-karst",
+  "version": "0.2.2-alpha",
+  "status": "host-tested-alpha",
+  "target": {
+    "hardware": ["Elektron Digitone MKI", "Elektron Digitone Keys"],
+    "os": ["1.44"],
+    "sdk": "elekloader shared machine SDK alpha"
+  },
+  "synthesis": "Three inharmonic modal resonators with material-dependent partial ratios, strike/noise/bow excitation and independent damping.",
+  "control_count": 15,
+  "custom_pages": 2,
+  "machine_state_bytes_max": 256,
+  "license": "GPL-2.0-or-later",
+  "source": "sdk-alpha/karst/",
+  "validation": {
+    "level": "L2",
+    "host_tests": true,
+    "target_sdk_build": false,
+    "emulator": false,
+    "hardware": false,
+    "notes": "Host DSP, manifest and numerical tests pass. No ColdFire build or device test is claimed."
+  },
+  "capabilities": ["modal-resonance", "inharmonic-partials", "material-models", "strike", "bow", "noise-excitation"]
+}

@@ -1,0 +1,35 @@
+name: Documentation or website issue / Documentation ou site
+description: Report a broken link, unclear page, translation or accessibility issue.
+title: "[DOCS] "
+labels: ["documentation"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Type / Type
+      options:
+        - Broken link or missing page
+        - Technical inaccuracy
+        - French translation
+        - English translation
+        - Website or Workbench
+        - Accessibility or readability
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Page or path / Page ou chemin
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Problem / Problème
+      description: Expected wording or behavior, actual wording or behavior, and why it matters.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested correction / Correction proposée
