@@ -33,7 +33,8 @@ jobs:
           sh -n scripts/build_digitone_alpha.sh
           for f in tests/run_prototype_*.sh; do sh -n "$f"; done
       - name: Parse GitHub YAML templates and workflows
-        run: ruby -e 'require "yaml"; Dir.glob(".github/**/*.yml").sort.each { |path| YAML.load_file(path, aliases: true); puts "PASS #{path}" }'
+        run: |
+          ruby -e 'require "yaml"; Dir.glob(".github/**/*.yml").sort.each { |path| YAML.load_file(path, aliases: true); puts "PASS #{path}" }'
       - name: Parse checked-in JSON
         run: |
           python3 - <<'PY'
