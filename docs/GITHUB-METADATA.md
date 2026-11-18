@@ -6,7 +6,7 @@ This file records the recommended public-facing GitHub repository fields. GitHub
 
 **English (recommended, concise):**
 
-> Experimental synthesis engines and DSP research for Elektron Digitone MKI: 3 shared SDK-alpha machines, 6 host prototypes, validation tools and a local-first Workbench. Not hardware-certified.
+> Experimental synthesis engines and DSP research for Elektron Digitone MKI: 3 shared SDK-alpha machines, 6 host-tested DSP prototypes, validation tools and a local-first Workbench. Not hardware-certified.
 
 **Français (alternative):**
 

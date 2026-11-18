@@ -1,0 +1,23 @@
+name: Question / Question
+description: Ask a general project or usage question that is not a bug report.
+title: "[QUESTION] "
+body:
+  - type: markdown
+    attributes:
+      value: "Check the README, Getting Started guide and FAQ first. Do not include proprietary firmware or sensitive data."
+  - type: textarea
+    id: question
+    attributes:
+      label: Question / Question
+      description: State the question as precisely as possible.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context / Contexte
+      description: Relevant project version, commit, engine, host environment or intended workflow.
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What have you checked? / Qu'as-tu déjà vérifié ?
